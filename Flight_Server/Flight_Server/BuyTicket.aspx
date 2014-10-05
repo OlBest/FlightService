@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="BuyTicket.aspx.cs" Inherits="BuyTicket" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="BuyTicket" Codebehind="BuyTicket.aspx.cs" %>
 
 <!DOCTYPE html>
 
@@ -8,9 +8,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Купить билет:</p>

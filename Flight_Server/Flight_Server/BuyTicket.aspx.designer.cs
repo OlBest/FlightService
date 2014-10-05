@@ -21,6 +21,24 @@ public partial class BuyTicket {
     protected global::System.Web.UI.HtmlControls.HtmlForm form1;
     
     /// <summary>
+    /// TextBoxName control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox TextBoxName;
+    
+    /// <summary>
+    /// TextBoxSurname control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox TextBoxSurname;
+    
+    /// <summary>
     /// Label1 control.
     /// </summary>
     /// <remarks>
@@ -66,7 +84,7 @@ public partial class BuyTicket {
     protected global::System.Web.UI.WebControls.Label LabelCost;
     
     /// <summary>
-    /// ButtonPressedBuy control.
+    /// ButtonBuyTicket control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
