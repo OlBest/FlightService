@@ -17,15 +17,18 @@ namespace FlightsService
     {
 
         [WebMethod]
-        public int GetCustomerIdByNameAndSurname(string name, string surname)
+        public void BuyTicket(string departure, string arrival, string name, string surname)
         {
-             return Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname));
+            var adapter = new FLIGHTSTableAdapter();
+            adapter.InsertFlight(Convert.ToInt32(adapter.GetNumberFlights() + 1),
+                Convert.ToInt32(new FLIGHTSPRICETableAdapter().GetFlightsPriceId(departure, arrival)),
+                Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname)));
         }
 
         [WebMethod]
-        public int GetNumberCustomers()
+        public DataTable GetArrivalCitiesByDeparture (string departure)
         {
-            return Convert.ToInt32(new CUSTOMERTableAdapter().GetNumberCustomers());
+            return new FLIGHTSPRICETableAdapter().GetArrivalCitiesByDeparture(departure);
         }
 
         [WebMethod]
@@ -53,7 +56,7 @@ namespace FlightsService
         public DataTable GetFlightsCities()
         {
             var adater = new CITIESTableAdapter();
-            return adater.GetFlightsCities();
+            return adater.GetFlightCities();
         }
 
 
