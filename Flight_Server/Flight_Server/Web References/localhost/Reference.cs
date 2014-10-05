@@ -30,15 +30,19 @@ namespace Flight_Server.localhost {
     [System.Web.Services.WebServiceBindingAttribute(Name="FlightsServiceSoap", Namespace="http://flights.com/")]
     public partial class FlightsService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback GetCustomerIdByNameAndSurnameOperationCompleted;
+        private System.Threading.SendOrPostCallback BuyTicketOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetNumberCustomersOperationCompleted;
+        private System.Threading.SendOrPostCallback GetAllFlightsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetArrivalCitiesByDepartureOperationCompleted;
         
         private System.Threading.SendOrPostCallback AddCustomerOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetCustomersOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetCustomerFlightsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback UpdateCustomerOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetFlightsCitiesOperationCompleted;
         
@@ -83,10 +87,13 @@ namespace Flight_Server.localhost {
         }
         
         /// <remarks/>
-        public event GetCustomerIdByNameAndSurnameCompletedEventHandler GetCustomerIdByNameAndSurnameCompleted;
+        public event BuyTicketCompletedEventHandler BuyTicketCompleted;
         
         /// <remarks/>
-        public event GetNumberCustomersCompletedEventHandler GetNumberCustomersCompleted;
+        public event GetAllFlightsCompletedEventHandler GetAllFlightsCompleted;
+        
+        /// <remarks/>
+        public event GetArrivalCitiesByDepartureCompletedEventHandler GetArrivalCitiesByDepartureCompleted;
         
         /// <remarks/>
         public event AddCustomerCompletedEventHandler AddCustomerCompleted;
@@ -98,66 +105,101 @@ namespace Flight_Server.localhost {
         public event GetCustomerFlightsCompletedEventHandler GetCustomerFlightsCompleted;
         
         /// <remarks/>
+        public event UpdateCustomerCompletedEventHandler UpdateCustomerCompleted;
+        
+        /// <remarks/>
         public event GetFlightsCitiesCompletedEventHandler GetFlightsCitiesCompleted;
         
         /// <remarks/>
         public event GetFlightPriceCompletedEventHandler GetFlightPriceCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetCustomerIdByNameAndSurname", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetCustomerIdByNameAndSurname(string name, string surname) {
-            object[] results = this.Invoke("GetCustomerIdByNameAndSurname", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/BuyTicket", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void BuyTicket(string departure, string arrival, string name, string surname) {
+            this.Invoke("BuyTicket", new object[] {
+                        departure,
+                        arrival,
                         name,
                         surname});
-            return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetCustomerIdByNameAndSurnameAsync(string name, string surname) {
-            this.GetCustomerIdByNameAndSurnameAsync(name, surname, null);
+        public void BuyTicketAsync(string departure, string arrival, string name, string surname) {
+            this.BuyTicketAsync(departure, arrival, name, surname, null);
         }
         
         /// <remarks/>
-        public void GetCustomerIdByNameAndSurnameAsync(string name, string surname, object userState) {
-            if ((this.GetCustomerIdByNameAndSurnameOperationCompleted == null)) {
-                this.GetCustomerIdByNameAndSurnameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCustomerIdByNameAndSurnameOperationCompleted);
+        public void BuyTicketAsync(string departure, string arrival, string name, string surname, object userState) {
+            if ((this.BuyTicketOperationCompleted == null)) {
+                this.BuyTicketOperationCompleted = new System.Threading.SendOrPostCallback(this.OnBuyTicketOperationCompleted);
             }
-            this.InvokeAsync("GetCustomerIdByNameAndSurname", new object[] {
+            this.InvokeAsync("BuyTicket", new object[] {
+                        departure,
+                        arrival,
                         name,
-                        surname}, this.GetCustomerIdByNameAndSurnameOperationCompleted, userState);
+                        surname}, this.BuyTicketOperationCompleted, userState);
         }
         
-        private void OnGetCustomerIdByNameAndSurnameOperationCompleted(object arg) {
-            if ((this.GetCustomerIdByNameAndSurnameCompleted != null)) {
+        private void OnBuyTicketOperationCompleted(object arg) {
+            if ((this.BuyTicketCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetCustomerIdByNameAndSurnameCompleted(this, new GetCustomerIdByNameAndSurnameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.BuyTicketCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetNumberCustomers", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetNumberCustomers() {
-            object[] results = this.Invoke("GetNumberCustomers", new object[0]);
-            return ((int)(results[0]));
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetAllFlights", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable GetAllFlights() {
+            object[] results = this.Invoke("GetAllFlights", new object[0]);
+            return ((System.Data.DataTable)(results[0]));
         }
         
         /// <remarks/>
-        public void GetNumberCustomersAsync() {
-            this.GetNumberCustomersAsync(null);
+        public void GetAllFlightsAsync() {
+            this.GetAllFlightsAsync(null);
         }
         
         /// <remarks/>
-        public void GetNumberCustomersAsync(object userState) {
-            if ((this.GetNumberCustomersOperationCompleted == null)) {
-                this.GetNumberCustomersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetNumberCustomersOperationCompleted);
+        public void GetAllFlightsAsync(object userState) {
+            if ((this.GetAllFlightsOperationCompleted == null)) {
+                this.GetAllFlightsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllFlightsOperationCompleted);
             }
-            this.InvokeAsync("GetNumberCustomers", new object[0], this.GetNumberCustomersOperationCompleted, userState);
+            this.InvokeAsync("GetAllFlights", new object[0], this.GetAllFlightsOperationCompleted, userState);
         }
         
-        private void OnGetNumberCustomersOperationCompleted(object arg) {
-            if ((this.GetNumberCustomersCompleted != null)) {
+        private void OnGetAllFlightsOperationCompleted(object arg) {
+            if ((this.GetAllFlightsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetNumberCustomersCompleted(this, new GetNumberCustomersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.GetAllFlightsCompleted(this, new GetAllFlightsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetArrivalCitiesByDeparture", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable GetArrivalCitiesByDeparture(string departure) {
+            object[] results = this.Invoke("GetArrivalCitiesByDeparture", new object[] {
+                        departure});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetArrivalCitiesByDepartureAsync(string departure) {
+            this.GetArrivalCitiesByDepartureAsync(departure, null);
+        }
+        
+        /// <remarks/>
+        public void GetArrivalCitiesByDepartureAsync(string departure, object userState) {
+            if ((this.GetArrivalCitiesByDepartureOperationCompleted == null)) {
+                this.GetArrivalCitiesByDepartureOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetArrivalCitiesByDepartureOperationCompleted);
+            }
+            this.InvokeAsync("GetArrivalCitiesByDeparture", new object[] {
+                        departure}, this.GetArrivalCitiesByDepartureOperationCompleted, userState);
+        }
+        
+        private void OnGetArrivalCitiesByDepartureOperationCompleted(object arg) {
+            if ((this.GetArrivalCitiesByDepartureCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetArrivalCitiesByDepartureCompleted(this, new GetArrivalCitiesByDepartureCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -248,6 +290,36 @@ namespace Flight_Server.localhost {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/UpdateCustomer", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void UpdateCustomer(string name, string surname) {
+            this.Invoke("UpdateCustomer", new object[] {
+                        name,
+                        surname});
+        }
+        
+        /// <remarks/>
+        public void UpdateCustomerAsync(string name, string surname) {
+            this.UpdateCustomerAsync(name, surname, null);
+        }
+        
+        /// <remarks/>
+        public void UpdateCustomerAsync(string name, string surname, object userState) {
+            if ((this.UpdateCustomerOperationCompleted == null)) {
+                this.UpdateCustomerOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUpdateCustomerOperationCompleted);
+            }
+            this.InvokeAsync("UpdateCustomer", new object[] {
+                        name,
+                        surname}, this.UpdateCustomerOperationCompleted, userState);
+        }
+        
+        private void OnUpdateCustomerOperationCompleted(object arg) {
+            if ((this.UpdateCustomerCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.UpdateCustomerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetFlightsCities", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataTable GetFlightsCities() {
             object[] results = this.Invoke("GetFlightsCities", new object[0]);
@@ -326,52 +398,56 @@ namespace Flight_Server.localhost {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void GetCustomerIdByNameAndSurnameCompletedEventHandler(object sender, GetCustomerIdByNameAndSurnameCompletedEventArgs e);
+    public delegate void BuyTicketCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void GetAllFlightsCompletedEventHandler(object sender, GetAllFlightsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetCustomerIdByNameAndSurnameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetAllFlightsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetCustomerIdByNameAndSurnameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetAllFlightsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public int Result {
+        public System.Data.DataTable Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
+                return ((System.Data.DataTable)(this.results[0]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void GetNumberCustomersCompletedEventHandler(object sender, GetNumberCustomersCompletedEventArgs e);
+    public delegate void GetArrivalCitiesByDepartureCompletedEventHandler(object sender, GetArrivalCitiesByDepartureCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetNumberCustomersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetArrivalCitiesByDepartureCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetNumberCustomersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetArrivalCitiesByDepartureCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public int Result {
+        public System.Data.DataTable Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
+                return ((System.Data.DataTable)(this.results[0]));
             }
         }
     }
@@ -431,6 +507,10 @@ namespace Flight_Server.localhost {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void UpdateCustomerCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]

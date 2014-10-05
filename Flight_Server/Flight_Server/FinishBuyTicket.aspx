@@ -1,17 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="FinishBuyTicket" Codebehind="FinishBuyTicket.aspx.cs" %>
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="Flight_Server.About" %>
 
-<!DOCTYPE html>
+<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+    <hgroup class="title">
+        <h1><%: Title %>.</h1>
+        <h2>Поздравляем с приобретением билета</h2>
+    </hgroup>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        Поздравляем с приобретением билета<br />
-        <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button1" runat="server" OnClick="OnButtonPressedGoToMain" Text="На главную" />
-    </form>
-</body>
-</html>
+    </asp:Content>
+
+
+
+

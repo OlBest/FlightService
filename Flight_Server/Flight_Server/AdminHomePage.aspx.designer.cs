@@ -9,7 +9,8 @@
 
 
 
-public partial class _Default {
+public partial class _AdminHomePage
+{
     
     /// <summary>
     /// ButtonBuyTicket control.

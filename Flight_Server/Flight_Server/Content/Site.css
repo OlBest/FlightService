@@ -208,6 +208,7 @@ ul#menu {
 /* featured */
 .featured {
     background-color: #fff;
+    height: 430px;
 }
 
     .featured .content-wrapper {
@@ -405,10 +406,9 @@ fieldset {
         background: #fff;
         color: #333;
         font-size: 1.2em;
-        margin: 5px 0 6px 0;
+        margin: 5px 0 6px 17px;
         padding: 5px;
-        width: 300px;
-    }
+        }
 
     textarea {
         font-family: inherit;
@@ -435,8 +435,7 @@ fieldset {
         font-weight: 600;
         padding: 7px;
         margin-right: 8px;
-        width: auto;
-    }
+        }
 
     td input[type="submit"],
     td input[type="button"],
