@@ -60,10 +60,10 @@ namespace FlightsService
         }
 
         [WebMethod]
-        public void UpdateCustomer(string name, string surname)
+        public void UpdateCustomer(string newName, string newSurname,string oldName,string oldSurname)
         {
-            new CUSTOMERTableAdapter().UpdateCustomer(name, surname,
-               Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname)));
+            new CUSTOMERTableAdapter().UpdateCustomer(newName, newSurname,
+               Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(oldName, oldSurname)));
         }
 
 
