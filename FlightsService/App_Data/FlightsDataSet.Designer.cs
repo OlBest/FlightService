@@ -285,13 +285,6 @@ namespace FlightsService.App_Data {
             this.tableCITIES = new CITIESDataTable();
             base.Tables.Add(this.tableCITIES);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE1", new global::System.Data.DataColumn[] {
-                        this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableFLIGHTSPRICE.ArrivalColumn});
-            this.tableFLIGHTSPRICE.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE", new global::System.Data.DataColumn[] {
                         this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableFLIGHTSPRICE.DepartureColumn});
@@ -299,16 +292,23 @@ namespace FlightsService.App_Data {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_CUSTOMER_FLIGHTS", new global::System.Data.DataColumn[] {
-                        this.tableCUSTOMER.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableFLIGHTS.CustomerIdColumn});
-            this.tableFLIGHTS.Constraints.Add(fkc);
+            fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE1", new global::System.Data.DataColumn[] {
+                        this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableFLIGHTSPRICE.ArrivalColumn});
+            this.tableFLIGHTSPRICE.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_FLIGHTSPRICE_FLIGHTS", new global::System.Data.DataColumn[] {
                         this.tableFLIGHTSPRICE.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableFLIGHTS.FlightsPriceIdColumn});
+            this.tableFLIGHTS.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_CUSTOMER_FLIGHTS", new global::System.Data.DataColumn[] {
+                        this.tableCUSTOMER.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableFLIGHTS.CustomerIdColumn});
             this.tableFLIGHTS.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
@@ -2988,33 +2988,42 @@ WHERE  (Departure =
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[5];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, FlightsPriceId, CustomerId FROM dbo.FLIGHTS";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT CITIES_1.City AS Departure, CITIES_2.City AS Arrival, FLIGHTSPRICE.Price
+            this._commandCollection[1].CommandText = @"SELECT CITIES_1.City AS Departure, CITIES_2.City AS Arrival, FLIGHTSPRICE.Price, CUSTOMER.Name, CUSTOMER.Surname
+FROM     FLIGHTS INNER JOIN
+                  FLIGHTSPRICE ON FLIGHTS.FlightsPriceId = FLIGHTSPRICE.Id INNER JOIN
+                  CITIES AS CITIES_1 ON CITIES_1.Id = FLIGHTSPRICE.Departure INNER JOIN
+                  CITIES AS CITIES_2 ON CITIES_2.Id = FLIGHTSPRICE.Arrival INNER JOIN
+                  CUSTOMER ON FLIGHTS.CustomerId = CUSTOMER.Id";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = @"SELECT CITIES_1.City AS Departure, CITIES_2.City AS Arrival, FLIGHTSPRICE.Price
 FROM     FLIGHTS INNER JOIN
                   FLIGHTSPRICE ON FLIGHTS.FlightsPriceId = FLIGHTSPRICE.Id INNER JOIN
                   CITIES AS CITIES_1 ON CITIES_1.Id = FLIGHTSPRICE.Departure INNER JOIN
                   CITIES AS CITIES_2 ON CITIES_2.Id = FLIGHTSPRICE.Arrival
 WHERE  (FLIGHTS.CustomerId = @CustomerId)";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CustomerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CustomerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT COUNT(*) FROM FLIGHTS";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CustomerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CustomerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "INSERT INTO FLIGHTS\r\n                  (Id, FlightsPriceId, CustomerId)\r\nVALUES (" +
-                "@Id,@FlightsPriceId,@CustomerId)";
+            this._commandCollection[3].CommandText = "SELECT COUNT(*) FROM FLIGHTS";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FlightsPriceId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "FlightsPriceId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CustomerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CustomerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "INSERT INTO FLIGHTS\r\n                  (Id, FlightsPriceId, CustomerId)\r\nVALUES (" +
+                "@Id,@FlightsPriceId,@CustomerId)";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FlightsPriceId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "FlightsPriceId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CustomerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CustomerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3045,8 +3054,19 @@ WHERE  (FLIGHTS.CustomerId = @CustomerId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual FlightsDataSet.FLIGHTSDataTable GetCustomerFlights(int CustomerId) {
+        public virtual FlightsDataSet.FLIGHTSDataTable GetAllFlights() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            FlightsDataSet.FLIGHTSDataTable dataTable = new FlightsDataSet.FLIGHTSDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual FlightsDataSet.FLIGHTSDataTable GetCustomerFlights(int CustomerId) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(CustomerId));
             FlightsDataSet.FLIGHTSDataTable dataTable = new FlightsDataSet.FLIGHTSDataTable();
             this.Adapter.Fill(dataTable);
@@ -3165,7 +3185,7 @@ WHERE  (FLIGHTS.CustomerId = @CustomerId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<int> GetNumberFlights() {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3194,7 +3214,7 @@ WHERE  (FLIGHTS.CustomerId = @CustomerId)";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual int InsertFlight(int Id, int FlightsPriceId, int CustomerId) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             command.Parameters[0].Value = ((int)(Id));
             command.Parameters[1].Value = ((int)(FlightsPriceId));
             command.Parameters[2].Value = ((int)(CustomerId));

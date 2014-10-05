@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Web.Services;
+using FlightsService.App_Data;
 using FlightsService.App_Data.FlightsDataSetTableAdapters;
 
 namespace FlightsService
@@ -23,6 +24,12 @@ namespace FlightsService
             adapter.InsertFlight(Convert.ToInt32(adapter.GetNumberFlights() + 1),
                 Convert.ToInt32(new FLIGHTSPRICETableAdapter().GetFlightsPriceId(departure, arrival)),
                 Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname)));
+        }
+
+        [WebMethod]
+        public DataTable GetAllFlights()
+        {
+            return new FLIGHTSTableAdapter().GetAllFlights();
         }
 
         [WebMethod]
