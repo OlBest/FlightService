@@ -29,13 +29,13 @@ namespace FlightsService
         [WebMethod]
         public DataTable GetAllFlights()
         {
-            return new FLIGHTSTableAdapter().GetAllFlights();
+            return new FlightsTableAdapter().GetAllFlights();
         }
 
         [WebMethod]
         public DataTable GetArrivalCitiesByDeparture (string departure)
         {
-            return new FLIGHTSPRICETableAdapter().GetArrivalCitiesByDeparture(departure);
+            return new CityTableAdapter().GetArrivalCitiesByDeparture(departure);
         }
 
         [WebMethod]
@@ -48,21 +48,29 @@ namespace FlightsService
         [WebMethod]
         public DataTable GetCustomers()
         {
-            var adapter = new CUSTOMERTableAdapter();
+            var adapter = new CustomersTableAdapter();
             return adapter.GetCustomers();
         }
 
         [WebMethod]
         public DataTable GetCustomerFlights(int customerId)
         {
-            var adapter = new FLIGHTSTableAdapter();
+            var adapter = new CustomerFlightsTableAdapter();
             return adapter.GetCustomerFlights(customerId);
         }
 
         [WebMethod]
+        public void UpdateCustomer(string name, string surname)
+        {
+            new CUSTOMERTableAdapter().UpdateCustomer(name, surname,
+               Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname)));
+        }
+
+
+        [WebMethod]
         public DataTable GetFlightsCities()
         {
-            var adater = new CITIESTableAdapter();
+            var adater = new CityTableAdapter();
             return adater.GetFlightCities();
         }
 
