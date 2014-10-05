@@ -1,0 +1,6 @@
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.dll.config
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.dll
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.pdb
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Release\FlightsService.dll
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Release\FlightsService.pdb
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Release\FlightsService.csprojResolveAssemblyReference.cache

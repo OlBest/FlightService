@@ -1,0 +1,11 @@
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.dll.config
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.dll
+D:\Nikita\Projects\FlightsService\FlightsService\bin\FlightsService.pdb
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.dll
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.pdb
+D:\Nikita\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.csprojResolveAssemblyReference.cache
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\FlightsService\FlightsService\bin\FlightsService.dll
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\FlightsService\FlightsService\bin\FlightsService.pdb
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.csprojResolveAssemblyReference.cache
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.dll
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\FlightsService\FlightsService\obj\Debug\FlightsService.pdb
