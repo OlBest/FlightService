@@ -53,11 +53,14 @@ namespace FlightsService
         }
 
         [WebMethod]
-        public DataTable GetCustomerFlights(int customerId)
+        public DataTable GetCustomerFlights(string name , string surname)
         {
             var adapter = new CustomerFlightsTableAdapter();
-            return adapter.GetCustomerFlights(customerId);
+            return adapter.GetCustomerFlights(Convert.ToInt32(new CUSTOMERTableAdapter().GetCustomerIdByNameAndSurname(name, surname)));
         }
+
+
+
 
         [WebMethod]
         public void UpdateCustomer(string newName, string newSurname,string oldName,string oldSurname)
