@@ -235,11 +235,11 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Web References\localhost\FlightsService.disco" />
     <Content Include="ShowTickets.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="UserHomePage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -310,10 +310,6 @@
     <Compile Include="AdminHomePage.aspx.designer.cs">
       <DependentUpon>AdminHomePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
@@ -361,6 +357,10 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="UserHomePage.aspx.cs">
       <DependentUpon>UserHomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -375,7 +375,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Admin\" />
     <Folder Include="App_Data\" />
+    <Folder Include="User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

@@ -2,15 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="FeaturedContent" runat="server">
-    <p>
-        Редактировать данные полетов</p>
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Редактировать данные полетов</h1>
+      
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Table ID="TableEditFlights" runat="server" Height="40px" Width="320px">
-        <asp:TableRow runat="server">
-            <asp:TableCell runat="server">Отправление</asp:TableCell>
-            <asp:TableCell runat="server">Прибытие</asp:TableCell>
-            <asp:TableCell runat="server">Цена</asp:TableCell>
-        </asp:TableRow>
-    </asp:Table>
+    
+    <p>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:GridView ID="GridView" runat="server" HorizontalAlign="Center" OnRowDeleting="OnRowDeleting" OnRowUpdating="OnRowUpdating" Width="363px">
+            <Columns>
+                <asp:CommandField ShowCancelButton="False" ShowDeleteButton="True" ShowEditButton="True" />
+            </Columns>
+        </asp:GridView>
+        &nbsp;</p>
+    
 </asp:Content>

@@ -5,14 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class FinishBuyTicket : System.Web.UI.Page
+namespace Flight_Server
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class FinishBuyTicket1 : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
 
-    }
-    protected void OnButtonPressedGoToMain(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Default.aspx");
+        }
     }
 }

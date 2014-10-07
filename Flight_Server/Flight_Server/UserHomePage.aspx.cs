@@ -13,5 +13,10 @@ namespace Flight_Server
         {
 
         }
+        
+        protected void OnClickedButtonBuyTicket(object sender, EventArgs e)
+        {
+            Response.Redirect("~/BuyNewTicket.aspx");
+        }
     }
 }

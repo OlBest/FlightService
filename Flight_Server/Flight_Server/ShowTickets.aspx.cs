@@ -22,7 +22,7 @@ namespace Flight_Server
                 foreach (object obj in dataRow.ItemArray)
                 {
                     TableCell c = new TableCell();
-                    LiteralControl LitControl = new LiteralControl((string)obj);
+                    LiteralControl LitControl = new LiteralControl(Convert.ToString(obj));
                     c.Controls.Add(LitControl);
                     row.Cells.Add(c);
                 }

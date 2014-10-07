@@ -61,7 +61,7 @@
                 </section>
                 <nav>
                     <ul id="menu">
-                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/Default.aspx">Home</a></li>
                         <li><a runat="server" href="~/About.aspx">About</a></li>
                     </ul>
                 </nav>

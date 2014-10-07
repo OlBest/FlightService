@@ -23,6 +23,8 @@ namespace Flight_Server
                     DropDownListDeparture.Items.Add((string)row[0]);
                 }
             }
+            UpdateEnableBuyTicket();
+            UpdateCost();
         }
 
         protected void OnChangeDepartureCity(object sender, EventArgs e)
@@ -51,22 +53,20 @@ namespace Flight_Server
 
         private void UpdateCost()
         {
-            int cost;
             if (DropDownListDeparture.SelectedIndex != -1 && DropDownListArrival.SelectedIndex != -1)
             {
                 string ArrivalCity = DropDownListArrival.SelectedValue;
                 string DepartureCity = DropDownListDeparture.SelectedValue;
-                cost = new FlightsService().GetFlightPrice(DepartureCity, ArrivalCity);
+                int cost = new FlightsService().GetFlightPrice(DepartureCity, ArrivalCity);
+                LabelCost.Text = Convert.ToString(cost);
             }
             else
-                cost = 0;
-
-            LabelCost.Text = Convert.ToString(cost);
+                LabelCost.Text = "undefined";
         }
 
         protected void OnButtonPressedCancel(object sender, EventArgs e)
         {
-            Response.Redirect("~/Default.aspx");
+            Response.Redirect("~/HomeUserPage.aspx");
         }
         protected void OnButtonPressedBuy(object sender, EventArgs e)
         {

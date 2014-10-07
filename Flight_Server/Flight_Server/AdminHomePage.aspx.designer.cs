@@ -9,7 +9,7 @@
 
 
 
-public partial class _AdminHomePage
+public partial class AdminHomePage
 {
     
     /// <summary>
