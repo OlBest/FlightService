@@ -33,9 +33,71 @@ namespace FlightsService
         }
 
         [WebMethod]
+        public int GetFlightPriceId(string departure, string arrival)
+        {
+            return Convert.ToInt32(new FLIGHTSPRICETableAdapter().GetFlightsPriceId(departure, arrival));
+        }
+
+        [WebMethod]
+        public void UpdateFlightPrice(int flightPriceId, string departure, string arrival, int price)
+        {
+            new FLIGHTSPRICETableAdapter().UpdateFlightPrice(price, flightPriceId, departure, arrival);
+        }
+
+        [WebMethod]
+        public DataTable GetFlightsPrice()
+        {
+            return new FlightsPriceTableAdapter().GetFligthsPrice();
+        }
+
+        [WebMethod]
+        public void AddFlightPrice(string departure, string arrival, int price)
+        {
+            var adapter = new FLIGHTSPRICETableAdapter();
+            var cityAdapter = new CITIESTableAdapter();
+            adapter.InsertFlightPrice(Convert.ToInt32(adapter.GetNumberFlightPrice() + 1),
+                Convert.ToInt32(cityAdapter.GetCityId(departure)),Convert.ToInt32(cityAdapter.GetCityId(arrival)), price);
+        }
+
+        [WebMethod]
+        public void CancelTicket(int flightId)
+        {
+            new FLIGHTSTableAdapter().DeleteFlight(flightId);
+        }
+
+        [WebMethod]
+        public void UpdateTicket(int flightId, int flightPriceId, string name, string surname)
+        {
+            var adapter = new FLIGHTSTableAdapter();
+            var customerAdapter = new CUSTOMERTableAdapter();
+            adapter.UpdateFlight(flightPriceId, Convert.ToInt32(customerAdapter.GetCustomerIdByNameAndSurname(name, surname)), flightId);
+        }
+
+        [WebMethod]
+        public void DeleteFlightPrice(string departure, string arrival)
+        {
+            var adapter = new FLIGHTSPRICETableAdapter();
+            adapter.DeleteFlightPrice(Convert.ToInt32(adapter.GetFlightsPriceId(departure, arrival)));
+        }
+
+        [WebMethod]
         public DataTable GetArrivalCitiesByDeparture (string departure)
         {
             return new CityTableAdapter().GetArrivalCitiesByDeparture(departure);
+        }
+
+
+        [WebMethod]
+        public void AddCity(string city)
+        {
+            var adapter = new CITIESTableAdapter();
+            adapter.AddCity(Convert.ToInt32(adapter.GetNumberCities() + 1), city);
+        }
+
+        [WebMethod]
+        public void DeleteCity(string city)
+        {
+            new CITIESTableAdapter().DeleteCity(city);
         }
 
         [WebMethod]
