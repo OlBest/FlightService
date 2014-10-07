@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://flights.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://flights.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web-сервис для работы с клиентами</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://flights.com/">
+      <s:element name="BuyTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="surname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuyTicketResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllFlights">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllFlightsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllFlightsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightPriceId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightPriceIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceIdResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateFlightPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flightPriceId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="price" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateFlightPriceResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFlightsPrice">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFlightsPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFlightsPriceResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddFlightPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="price" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddFlightPriceResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CancelTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flightId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTicketResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="flightId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="flightPriceId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="surname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteFlightPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteFlightPriceResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetArrivalCitiesByDeparture">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArrivalCitiesByDepartureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetArrivalCitiesByDepartureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCityResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCityResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="surname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddCustomerResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCustomers">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCustomersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerFlights">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="surname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerFlightsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerFlightsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="newName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newSurname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldSurname" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomerResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFlightsCities">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFlightsCitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFlightsCitiesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="departure" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrival" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="BuyTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:BuyTicket" />
+  </wsdl:message>
+  <wsdl:message name="BuyTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:BuyTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllFlightsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllFlights" />
+  </wsdl:message>
+  <wsdl:message name="GetAllFlightsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllFlightsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightPriceIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlightPriceId" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightPriceIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlightPriceIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateFlightPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateFlightPrice" />
+  </wsdl:message>
+  <wsdl:message name="UpdateFlightPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateFlightPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightsPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlightsPrice" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightsPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlightsPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddFlightPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:AddFlightPrice" />
+  </wsdl:message>
+  <wsdl:message name="AddFlightPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:AddFlightPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelTicket" />
+  </wsdl:message>
+  <wsdl:message name="CancelTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTicket" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFlightPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteFlightPrice" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFlightPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteFlightPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetArrivalCitiesByDepartureSoapIn">
+    <wsdl:part name="parameters" element="tns:GetArrivalCitiesByDeparture" />
+  </wsdl:message>
+  <wsdl:message name="GetArrivalCitiesByDepartureSoapOut">
+    <wsdl:part name="parameters" element="tns:GetArrivalCitiesByDepartureResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddCitySoapIn">
+    <wsdl:part name="parameters" element="tns:AddCity" />
+  </wsdl:message>
+  <wsdl:message name="AddCitySoapOut">
+    <wsdl:part name="parameters" element="tns:AddCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCitySoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteCity" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCitySoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:AddCustomer" />
+  </wsdl:message>
+  <wsdl:message name="AddCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:AddCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomers" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerFlightsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerFlights" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerFlightsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerFlightsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCustomer" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightsCitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlightsCities" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightsCitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlightsCitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlightPrice" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlightPriceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FlightsServiceSoap">
+    <wsdl:operation name="BuyTicket">
+      <wsdl:input message="tns:BuyTicketSoapIn" />
+      <wsdl:output message="tns:BuyTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFlights">
+      <wsdl:input message="tns:GetAllFlightsSoapIn" />
+      <wsdl:output message="tns:GetAllFlightsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPriceId">
+      <wsdl:input message="tns:GetFlightPriceIdSoapIn" />
+      <wsdl:output message="tns:GetFlightPriceIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFlightPrice">
+      <wsdl:input message="tns:UpdateFlightPriceSoapIn" />
+      <wsdl:output message="tns:UpdateFlightPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsPrice">
+      <wsdl:input message="tns:GetFlightsPriceSoapIn" />
+      <wsdl:output message="tns:GetFlightsPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddFlightPrice">
+      <wsdl:input message="tns:AddFlightPriceSoapIn" />
+      <wsdl:output message="tns:AddFlightPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelTicket">
+      <wsdl:input message="tns:CancelTicketSoapIn" />
+      <wsdl:output message="tns:CancelTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <wsdl:input message="tns:UpdateTicketSoapIn" />
+      <wsdl:output message="tns:UpdateTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFlightPrice">
+      <wsdl:input message="tns:DeleteFlightPriceSoapIn" />
+      <wsdl:output message="tns:DeleteFlightPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArrivalCitiesByDeparture">
+      <wsdl:input message="tns:GetArrivalCitiesByDepartureSoapIn" />
+      <wsdl:output message="tns:GetArrivalCitiesByDepartureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCity">
+      <wsdl:input message="tns:AddCitySoapIn" />
+      <wsdl:output message="tns:AddCitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCity">
+      <wsdl:input message="tns:DeleteCitySoapIn" />
+      <wsdl:output message="tns:DeleteCitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomer">
+      <wsdl:input message="tns:AddCustomerSoapIn" />
+      <wsdl:output message="tns:AddCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <wsdl:input message="tns:GetCustomersSoapIn" />
+      <wsdl:output message="tns:GetCustomersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerFlights">
+      <wsdl:input message="tns:GetCustomerFlightsSoapIn" />
+      <wsdl:output message="tns:GetCustomerFlightsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomer">
+      <wsdl:input message="tns:UpdateCustomerSoapIn" />
+      <wsdl:output message="tns:UpdateCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsCities">
+      <wsdl:input message="tns:GetFlightsCitiesSoapIn" />
+      <wsdl:output message="tns:GetFlightsCitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPrice">
+      <wsdl:input message="tns:GetFlightPriceSoapIn" />
+      <wsdl:output message="tns:GetFlightPriceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlightsServiceSoap" type="tns:FlightsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuyTicket">
+      <soap:operation soapAction="http://flights.com/BuyTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFlights">
+      <soap:operation soapAction="http://flights.com/GetAllFlights" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPriceId">
+      <soap:operation soapAction="http://flights.com/GetFlightPriceId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFlightPrice">
+      <soap:operation soapAction="http://flights.com/UpdateFlightPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsPrice">
+      <soap:operation soapAction="http://flights.com/GetFlightsPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFlightPrice">
+      <soap:operation soapAction="http://flights.com/AddFlightPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTicket">
+      <soap:operation soapAction="http://flights.com/CancelTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <soap:operation soapAction="http://flights.com/UpdateTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFlightPrice">
+      <soap:operation soapAction="http://flights.com/DeleteFlightPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArrivalCitiesByDeparture">
+      <soap:operation soapAction="http://flights.com/GetArrivalCitiesByDeparture" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCity">
+      <soap:operation soapAction="http://flights.com/AddCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCity">
+      <soap:operation soapAction="http://flights.com/DeleteCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomer">
+      <soap:operation soapAction="http://flights.com/AddCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <soap:operation soapAction="http://flights.com/GetCustomers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerFlights">
+      <soap:operation soapAction="http://flights.com/GetCustomerFlights" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomer">
+      <soap:operation soapAction="http://flights.com/UpdateCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsCities">
+      <soap:operation soapAction="http://flights.com/GetFlightsCities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPrice">
+      <soap:operation soapAction="http://flights.com/GetFlightPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FlightsServiceSoap12" type="tns:FlightsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BuyTicket">
+      <soap12:operation soapAction="http://flights.com/BuyTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFlights">
+      <soap12:operation soapAction="http://flights.com/GetAllFlights" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPriceId">
+      <soap12:operation soapAction="http://flights.com/GetFlightPriceId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFlightPrice">
+      <soap12:operation soapAction="http://flights.com/UpdateFlightPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsPrice">
+      <soap12:operation soapAction="http://flights.com/GetFlightsPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFlightPrice">
+      <soap12:operation soapAction="http://flights.com/AddFlightPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelTicket">
+      <soap12:operation soapAction="http://flights.com/CancelTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <soap12:operation soapAction="http://flights.com/UpdateTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFlightPrice">
+      <soap12:operation soapAction="http://flights.com/DeleteFlightPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArrivalCitiesByDeparture">
+      <soap12:operation soapAction="http://flights.com/GetArrivalCitiesByDeparture" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCity">
+      <soap12:operation soapAction="http://flights.com/AddCity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCity">
+      <soap12:operation soapAction="http://flights.com/DeleteCity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCustomer">
+      <soap12:operation soapAction="http://flights.com/AddCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <soap12:operation soapAction="http://flights.com/GetCustomers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerFlights">
+      <soap12:operation soapAction="http://flights.com/GetCustomerFlights" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomer">
+      <soap12:operation soapAction="http://flights.com/UpdateCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightsCities">
+      <soap12:operation soapAction="http://flights.com/GetFlightsCities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlightPrice">
+      <soap12:operation soapAction="http://flights.com/GetFlightPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FlightsService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web-сервис для работы с клиентами</wsdl:documentation>
+    <wsdl:port name="FlightsServiceSoap" binding="tns:FlightsServiceSoap">
+      <soap:address location="http://localhost:65225/FlightsService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FlightsServiceSoap12" binding="tns:FlightsServiceSoap12">
+      <soap12:address location="http://localhost:65225/FlightsService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
