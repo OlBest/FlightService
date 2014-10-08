@@ -12,15 +12,6 @@
 public partial class AdminHomePage {
     
     /// <summary>
-    /// EditDataPassagers control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Button EditDataPassagers;
-    
-    /// <summary>
     /// ButtonEditFlights control.
     /// </summary>
     /// <remarks>
@@ -28,6 +19,15 @@ public partial class AdminHomePage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Button ButtonEditFlights;
+    
+    /// <summary>
+    /// Button1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button Button1;
     
     /// <summary>
     /// ButtonEditTickets control.
@@ -46,4 +46,13 @@ public partial class AdminHomePage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Image Image1;
+    
+    /// <summary>
+    /// EditDataPassagers control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button EditDataPassagers;
 }

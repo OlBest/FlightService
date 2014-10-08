@@ -38,9 +38,9 @@ namespace FlightServer
         private void FillArrivalCity()
         {
             DropDownListArrival.Items.Clear();
-            FlightsService servise = new FlightsService();
+            FlightsService service = new FlightsService();
             string DepartureCity = DropDownListDeparture.SelectedValue;
-            DataTable table = servise.GetArrivalCitiesByDeparture(DepartureCity);
+            DataTable table = service.GetArrivalCitiesByDeparture(DepartureCity);
             foreach (DataRow row in table.Rows)
                 DropDownListArrival.Items.Add((string)row[0]);
         }
@@ -70,12 +70,14 @@ namespace FlightServer
         }
         protected void OnButtonPressedBuy(object sender, EventArgs e)
         {
-            FlightsService servise = new FlightsService();
-            servise.AddCustomer(TextBoxName.Text, TextBoxSurname.Text);
-            servise.BuyTicket(DropDownListDeparture.SelectedValue, DropDownListArrival.SelectedValue,
-                                TextBoxName.Text, TextBoxSurname.Text);
+            FlightsService service = new FlightsService();
+            string name = TextBoxName.Text;
+            string suranme = TextBoxSurname.Text;
+            service.AddCustomer(name, suranme);
+            service.BuyTicket(DropDownListDeparture.SelectedValue, DropDownListArrival.SelectedValue,
+                                name, suranme);
 
-            Response.Redirect("~/FinishBuyTicket.aspx");
+            Response.Redirect("~/FinishBuyTicket.aspx?name=" + name + "&surname=" + suranme);
         }
 
         private void UpdateEnableBuyTicket()
