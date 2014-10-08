@@ -186,6 +186,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="EditCastomers.aspx" />
+    <Content Include="EditCities.aspx" />
     <Content Include="EditFlights.aspx" />
     <Content Include="EditTickets.aspx" />
     <Content Include="FinishBuyTicket.aspx" />
@@ -322,6 +323,13 @@
     </Compile>
     <Compile Include="EditCastomers.aspx.designer.cs">
       <DependentUpon>EditCastomers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditCities.aspx.cs">
+      <DependentUpon>EditCities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditCities.aspx.designer.cs">
+      <DependentUpon>EditCities.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditFlights.aspx.cs">
       <DependentUpon>EditFlights.aspx</DependentUpon>

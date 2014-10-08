@@ -13,12 +13,12 @@ namespace FlightServer {
     public partial class EditCastomers {
         
         /// <summary>
-        /// TablePassagers control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table TablePassagers;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

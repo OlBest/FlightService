@@ -26,4 +26,9 @@ public partial class AdminHomePage: Page
     {
         Response.Redirect("~/EditTickets.aspx");
     }
+
+    protected void OnButtonPressedEditCities(object sender, EventArgs e)
+    {
+        Response.Redirect("~/EditCities.aspx");
+    }
 }

@@ -13,20 +13,10 @@ namespace FlightServer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FlightsService servise = new FlightsService();
-            DataTable table = servise.GetCustomers();
-            foreach (DataRow dataRow in table.Rows)
-            {
-                TableRow row = new TableRow();
-                foreach (object obj in dataRow.ItemArray)
-                {
-                    TableCell c = new TableCell();
-                    LiteralControl LitControl = new LiteralControl((string)obj);
-                    c.Controls.Add(LitControl);
-                    row.Cells.Add(c);
-                }
-                TablePassagers.Rows.Add(row);
-            }
+            FlightsService service = new FlightsService();
+            DataTable table = service.GetCustomers();
+            GridView1.DataSource = table;
+            GridView1.DataBind();
         }
     }
 }
