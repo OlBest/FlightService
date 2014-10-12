@@ -1,6 +1,7 @@
 ﻿using FlightServer.localhost;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,11 +16,12 @@ namespace FlightServer
             String name = Request.QueryString["name"];
             String surname = Request.QueryString["surname"];
 
-            FlightsService service = new FlightsService();
-            var table = service.GetCustomerFlights(name, surname);
-
-            GridView.DataSource = table;
-            GridView.DataBind();
+            DataTable table;
+            if (Service.getInstanse().flightService.GetCustomerFlights(name, surname, out table))
+            {
+                 GridView.DataSource = table;
+                 GridView.DataBind();
+            }
         }
     }
 }

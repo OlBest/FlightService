@@ -13,10 +13,12 @@ namespace FlightServer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FlightsService service = new FlightsService();
-            DataTable table = service.GetCustomers();
-            GridView1.DataSource = table;
-            GridView1.DataBind();
+            DataTable table;
+            if (Service.getInstanse().flightService.GetCustomers(out table))
+            {
+                GridView1.DataSource = table;
+                GridView1.DataBind();
+            }
         }
     }
 }

@@ -240,7 +240,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="UserHomePage.aspx" />
-    <Content Include="Web References\localhost\FlightsService.disco" />
+    <None Include="Web References\localhost\FlightsService.disco" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
   </ItemGroup>
@@ -361,6 +361,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -389,11 +390,11 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web References\localhost\FlightsService.wsdl" />
-    <Content Include="Web References\localhost\Reference.map">
+    <None Include="Web References\localhost\FlightsService.wsdl" />
+    <None Include="Web References\localhost\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

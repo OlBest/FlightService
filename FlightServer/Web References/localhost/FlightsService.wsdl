@@ -3,6 +3,32 @@
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web-сервис для работы с клиентами</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://flights.com/">
+      <s:element name="RegisterCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterCompanyResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Pay">
+        <s:complexType />
+      </s:element>
+      <s:element name="PayResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="PayForTimeInMilliSeconds">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="time" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PayForTimeInMilliSecondsResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="BuyTicket">
         <s:complexType>
           <s:sequence>
@@ -14,7 +40,11 @@
         </s:complexType>
       </s:element>
       <s:element name="BuyTicketResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BuyTicketResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetAllFlights">
         <s:complexType />
@@ -22,7 +52,8 @@
       <s:element name="GetAllFlightsResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetAllFlightsResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetAllFlightsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -44,7 +75,8 @@
       <s:element name="GetFlightPriceIdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceIdResult" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceIdResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -59,7 +91,11 @@
         </s:complexType>
       </s:element>
       <s:element name="UpdateFlightPriceResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateFlightPriceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetFlightsPrice">
         <s:complexType />
@@ -67,7 +103,8 @@
       <s:element name="GetFlightsPriceResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFlightsPriceResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightsPriceResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -88,7 +125,11 @@
         </s:complexType>
       </s:element>
       <s:element name="AddFlightPriceResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddFlightPriceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="CancelTicket">
         <s:complexType>
@@ -98,7 +139,11 @@
         </s:complexType>
       </s:element>
       <s:element name="CancelTicketResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancelTicketResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="UpdateTicket">
         <s:complexType>
@@ -111,7 +156,11 @@
         </s:complexType>
       </s:element>
       <s:element name="UpdateTicketResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTicketResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="DeleteFlightPrice">
         <s:complexType>
@@ -122,7 +171,11 @@
         </s:complexType>
       </s:element>
       <s:element name="DeleteFlightPriceResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteFlightPriceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetArrivalCitiesByDeparture">
         <s:complexType>
@@ -134,7 +187,8 @@
       <s:element name="GetArrivalCitiesByDepartureResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetArrivalCitiesByDepartureResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetArrivalCitiesByDepartureResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -153,7 +207,11 @@
         </s:complexType>
       </s:element>
       <s:element name="AddCityResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddCityResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="DeleteCity">
         <s:complexType>
@@ -163,7 +221,11 @@
         </s:complexType>
       </s:element>
       <s:element name="DeleteCityResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteCityResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="AddCustomer">
         <s:complexType>
@@ -174,7 +236,11 @@
         </s:complexType>
       </s:element>
       <s:element name="AddCustomerResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddCustomerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetCustomers">
         <s:complexType />
@@ -182,7 +248,8 @@
       <s:element name="GetCustomersResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCustomersResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetCustomersResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -204,7 +271,8 @@
       <s:element name="GetCustomerFlightsResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerFlightsResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetCustomerFlightsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -226,7 +294,11 @@
         </s:complexType>
       </s:element>
       <s:element name="UpdateCustomerResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateCustomerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetFlightsCities">
         <s:complexType />
@@ -234,7 +306,8 @@
       <s:element name="GetFlightsCitiesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetFlightsCitiesResult">
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightsCitiesResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="table">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -256,12 +329,31 @@
       <s:element name="GetFlightPriceResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceResult" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="GetFlightPriceResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="price" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="RegisterCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterCompany" />
+  </wsdl:message>
+  <wsdl:message name="RegisterCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="PaySoapIn">
+    <wsdl:part name="parameters" element="tns:Pay" />
+  </wsdl:message>
+  <wsdl:message name="PaySoapOut">
+    <wsdl:part name="parameters" element="tns:PayResponse" />
+  </wsdl:message>
+  <wsdl:message name="PayForTimeInMilliSecondsSoapIn">
+    <wsdl:part name="parameters" element="tns:PayForTimeInMilliSeconds" />
+  </wsdl:message>
+  <wsdl:message name="PayForTimeInMilliSecondsSoapOut">
+    <wsdl:part name="parameters" element="tns:PayForTimeInMilliSecondsResponse" />
+  </wsdl:message>
   <wsdl:message name="BuyTicketSoapIn">
     <wsdl:part name="parameters" element="tns:BuyTicket" />
   </wsdl:message>
@@ -371,6 +463,18 @@
     <wsdl:part name="parameters" element="tns:GetFlightPriceResponse" />
   </wsdl:message>
   <wsdl:portType name="FlightsServiceSoap">
+    <wsdl:operation name="RegisterCompany">
+      <wsdl:input message="tns:RegisterCompanySoapIn" />
+      <wsdl:output message="tns:RegisterCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Pay">
+      <wsdl:input message="tns:PaySoapIn" />
+      <wsdl:output message="tns:PaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PayForTimeInMilliSeconds">
+      <wsdl:input message="tns:PayForTimeInMilliSecondsSoapIn" />
+      <wsdl:output message="tns:PayForTimeInMilliSecondsSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="BuyTicket">
       <wsdl:input message="tns:BuyTicketSoapIn" />
       <wsdl:output message="tns:BuyTicketSoapOut" />
@@ -446,6 +550,33 @@
   </wsdl:portType>
   <wsdl:binding name="FlightsServiceSoap" type="tns:FlightsServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegisterCompany">
+      <soap:operation soapAction="http://flights.com/RegisterCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pay">
+      <soap:operation soapAction="http://flights.com/Pay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayForTimeInMilliSeconds">
+      <soap:operation soapAction="http://flights.com/PayForTimeInMilliSeconds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuyTicket">
       <soap:operation soapAction="http://flights.com/BuyTicket" style="document" />
       <wsdl:input>
@@ -611,6 +742,33 @@
   </wsdl:binding>
   <wsdl:binding name="FlightsServiceSoap12" type="tns:FlightsServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegisterCompany">
+      <soap12:operation soapAction="http://flights.com/RegisterCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pay">
+      <soap12:operation soapAction="http://flights.com/Pay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayForTimeInMilliSeconds">
+      <soap12:operation soapAction="http://flights.com/PayForTimeInMilliSeconds" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="BuyTicket">
       <soap12:operation soapAction="http://flights.com/BuyTicket" style="document" />
       <wsdl:input>

@@ -13,3 +13,4 @@ c:\Users\Oleg\Documents\Visual Studio 2012\Projects\git_FlightsService\FlightSer
 c:\Users\Oleg\Documents\Visual Studio 2012\Projects\git_FlightsService\FlightService\FlightsService\bin\FlightsService.pdb
 c:\Users\Oleg\Documents\Visual Studio 2012\Projects\git_FlightsService\FlightService\FlightsService\obj\Debug\FlightsService.dll
 c:\Users\Oleg\Documents\Visual Studio 2012\Projects\git_FlightsService\FlightService\FlightsService\obj\Debug\FlightsService.pdb
+c:\Users\Oleg\Documents\Visual Studio 2012\Projects\git_FlightsService\FlightService\FlightsService\obj\Debug\FlightsService.csprojResolveAssemblyReference.cache

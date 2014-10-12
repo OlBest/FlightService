@@ -22,20 +22,26 @@ namespace FlightServer
 
         private void LoadData()
         {
-            FlightsService service = new FlightsService();
-            DataTable AllFlightsTable = service.GetAllFlights();
-            IdTickets.Clear();
-            foreach (DataRow row in AllFlightsTable.Rows)
-                IdTickets.Add(Convert.ToInt32(row[0]));
-            AllFlightsTable.PrimaryKey = null;
-            AllFlightsTable.Columns.RemoveAt(0);
-            GridView.DataSource = AllFlightsTable;
-            GridView.DataBind();
+            FlightsService service = Service.getInstanse().flightService;
+            DataTable AllFlightsTable;
+            if (service.GetAllFlights(out AllFlightsTable))
+            {
+                IdTickets.Clear();
+                foreach (DataRow row in AllFlightsTable.Rows)
+                    IdTickets.Add(Convert.ToInt32(row[0]));
+                AllFlightsTable.PrimaryKey = null;
+                AllFlightsTable.Columns.RemoveAt(0);
+                GridView.DataSource = AllFlightsTable;
+                GridView.DataBind();
+            }
 
             DropDownListDeparture.Items.Clear();
-            DataTable FlightCityTable = service.GetFlightsCities();
-            foreach (DataRow row in FlightCityTable.Rows)
-                 DropDownListDeparture.Items.Add((string)row[0]);
+            DataTable FlightCityTable;
+            if (service.GetFlightsCities(out FlightCityTable))
+            {
+                foreach (DataRow row in FlightCityTable.Rows)
+                    DropDownListDeparture.Items.Add((string)row[0]);
+            }
             OnChangeDepartureCity(null, EventArgs.Empty);
             UpdateEnableAddTicket();
         }
@@ -48,7 +54,7 @@ namespace FlightServer
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int Id = IdTickets[e.RowIndex];
-            FlightsService service = new FlightsService();      
+            FlightsService service = Service.getInstanse().flightService;      
             service.CancelTicket(Id);
             LoadData();
         }
@@ -61,15 +67,18 @@ namespace FlightServer
         protected void OnRowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int id = IdTickets[e.RowIndex];
-            
-            FlightsService service = new FlightsService();
+
+            FlightsService service = Service.getInstanse().flightService;
             string departure = e.NewValues[0].ToString();
             string arrival = e.NewValues[1].ToString();
             int price = Convert.ToInt32(e.NewValues[2].ToString());
             string name = e.NewValues[3].ToString();
             string surname = e.NewValues[4].ToString();
-            service.UpdateTicket(id, service.GetFlightPriceId(departure, arrival), name, surname);
-            LoadData();
+
+            int FlightPriceId;
+            if (service.GetFlightPriceId(departure, arrival, out FlightPriceId))
+                 if (service.UpdateTicket(id, FlightPriceId, name, surname))
+                     LoadData();
         }
 
         private void UpdateEnableAddTicket()
@@ -91,7 +100,7 @@ namespace FlightServer
             string departureCity = DropDownListDeparture.SelectedValue;
             string arrivelCity = DropDownListDeparture.SelectedValue;
 
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             service.AddCustomer(name, surname);
             service.BuyTicket(departureCity, arrivelCity, name, surname);
             LoadData();
@@ -102,8 +111,10 @@ namespace FlightServer
             if (DropDownListDeparture.SelectedValue == "")
                 return;
 
-            FlightsService service = new FlightsService();
-            DataTable FlightCityTable = service.GetArrivalCitiesByDeparture(DropDownListDeparture.SelectedValue);
+            DataTable FlightCityTable;
+            if (!Service.getInstanse().flightService.GetArrivalCitiesByDeparture(DropDownListDeparture.SelectedValue, out FlightCityTable))
+                return;
+           
             DropDownListArrival.Items.Clear();
             foreach (DataRow row in FlightCityTable.Rows)
                  DropDownListArrival.Items.Add((string)row[0]);

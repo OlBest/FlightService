@@ -20,20 +20,25 @@ namespace FlightServer
 
         private void UpdateAllTable()
         {
-            FlightsService service = new FlightsService();
-            DataTable FlightPriceTable = service.GetFlightsPrice();
-
-            GridView.DataSource = FlightPriceTable;
-            GridView.DataBind();
-
-            DataTable FlightCitiesTable = service.GetFlightsCities();
-            DropDownListDeparture.Items.Clear();
-            DropDownListArrival.Items.Clear();
-
-            foreach (DataRow row in FlightCitiesTable.Rows)
+            FlightsService service = Service.getInstanse().flightService;
+            DataTable FlightPriceTable;
+            if (service.GetFlightsPrice(out FlightPriceTable))
             {
-                DropDownListDeparture.Items.Add((string)row[0]);
-                DropDownListArrival.Items.Add((string)row[0]);
+                GridView.DataSource = FlightPriceTable;
+                GridView.DataBind();
+            }
+
+            DataTable FlightCitiesTable;
+            if (service.GetFlightsCities(out FlightCitiesTable))
+            {
+                DropDownListDeparture.Items.Clear();
+                DropDownListArrival.Items.Clear();
+
+                foreach (DataRow row in FlightCitiesTable.Rows)
+                {
+                    DropDownListDeparture.Items.Add((string)row[0]);
+                    DropDownListArrival.Items.Add((string)row[0]);
+                }
             }
         }
 
@@ -42,7 +47,7 @@ namespace FlightServer
             int index = e.RowIndex;
             string departure = GridView.Rows[index].Cells[1].Text;
             string arrival = GridView.Rows[index].Cells[2].Text;
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             service.DeleteFlightPrice(departure, arrival);
             UpdateAllTable();
         }
@@ -59,7 +64,7 @@ namespace FlightServer
                 return;
             int price = Convert.ToInt32(priceStr);
 
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             service.AddFlightPrice(departure, arrival, price);
             UpdateAllTable();
         }
@@ -70,8 +75,7 @@ namespace FlightServer
         {
             string departureCity = GridView.Rows[e.NewEditIndex].Cells[1].Text;
             string arrivalCity = GridView.Rows[e.NewEditIndex].Cells[2].Text;
-            FlightsService service = new FlightsService();
-            idFlightPrice = service.GetFlightPriceId(departureCity, arrivalCity);
+            Service.getInstanse().flightService.GetFlightPriceId(departureCity, arrivalCity, out idFlightPrice);
             
             GridView.EditIndex = e.NewEditIndex;
             //GridView.DataBind();
@@ -90,7 +94,7 @@ namespace FlightServer
                 return;
             }
             int price = Convert.ToInt32(priceStr);
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             service.UpdateFlightPrice(idFlightPrice, departure, arrival, price);
             //UpdateAllTable();
         }

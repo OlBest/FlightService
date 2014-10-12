@@ -13,9 +13,10 @@ namespace FlightServer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FlightsService service = new FlightsService();
-            DataTable table = service.GetFlightsCities();
-
+            System.Data.DataTable table;
+            if (!Service.getInstanse().flightService.GetFlightsCities(out table))
+                return;
+            
             if (DropDownListDeparture.Items.Count == 0)
             {
                 foreach (DataRow row in table.Rows)
@@ -38,9 +39,13 @@ namespace FlightServer
         private void FillArrivalCity()
         {
             DropDownListArrival.Items.Clear();
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             string DepartureCity = DropDownListDeparture.SelectedValue;
-            DataTable table = service.GetArrivalCitiesByDeparture(DepartureCity);
+            
+            DataTable table;
+            if (!service.GetArrivalCitiesByDeparture(DepartureCity, out table))
+                return;
+
             foreach (DataRow row in table.Rows)
                 DropDownListArrival.Items.Add((string)row[0]);
         }
@@ -57,8 +62,11 @@ namespace FlightServer
             {
                 string ArrivalCity = DropDownListArrival.SelectedValue;
                 string DepartureCity = DropDownListDeparture.SelectedValue;
-                int cost = new FlightsService().GetFlightPrice(DepartureCity, ArrivalCity);
-                LabelCost.Text = Convert.ToString(cost);
+                int cost;
+                if (Service.getInstanse().flightService.GetFlightPrice(DepartureCity, ArrivalCity, out cost))
+                   LabelCost.Text = Convert.ToString(cost);
+                else
+                   LabelCost.Text = "undefined";
             }
             else
                 LabelCost.Text = "undefined";
@@ -70,7 +78,7 @@ namespace FlightServer
         }
         protected void OnButtonPressedBuy(object sender, EventArgs e)
         {
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             string name = TextBoxName.Text;
             string suranme = TextBoxSurname.Text;
             service.AddCustomer(name, suranme);

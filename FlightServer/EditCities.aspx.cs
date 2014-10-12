@@ -18,25 +18,27 @@ namespace FlightServer
 
         private void LoadData()
         {
-            FlightsService service = new FlightsService();
-            DataTable table = service.GetFlightsCities();
-            GridView.DataSource = table;
-            GridView.DataBind();
+            DataTable table;
+            if (Service.getInstanse().flightService.GetFlightsCities(out table))
+            {
+                GridView.DataSource = table;
+                GridView.DataBind();
+            }
         }
         protected void OnButtonPressedAddCity(object sender, EventArgs e)
         {
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             string city = TextBoxCity.Text;
-            service.AddCity(city);
-            LoadData();
+            if (service.AddCity(city))
+                LoadData();
         }
 
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            FlightsService service = new FlightsService();
+            FlightsService service = Service.getInstanse().flightService;
             string city = GridView.Rows[e.RowIndex].Cells[1].Text;
-            service.DeleteCity(city);
-            LoadData();
+            if (service.DeleteCity(city))
+                LoadData();
         }
     }
 }

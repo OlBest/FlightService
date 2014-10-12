@@ -30,6 +30,12 @@ namespace FlightServer.localhost {
     [System.Web.Services.WebServiceBindingAttribute(Name="FlightsServiceSoap", Namespace="http://flights.com/")]
     public partial class FlightsService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback RegisterCompanyOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback PayOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback PayForTimeInMilliSecondsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback BuyTicketOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetAllFlightsOperationCompleted;
@@ -105,6 +111,15 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
+        public event RegisterCompanyCompletedEventHandler RegisterCompanyCompleted;
+        
+        /// <remarks/>
+        public event PayCompletedEventHandler PayCompleted;
+        
+        /// <remarks/>
+        public event PayForTimeInMilliSecondsCompletedEventHandler PayForTimeInMilliSecondsCompleted;
+        
+        /// <remarks/>
         public event BuyTicketCompletedEventHandler BuyTicketCompleted;
         
         /// <remarks/>
@@ -159,13 +174,96 @@ namespace FlightServer.localhost {
         public event GetFlightPriceCompletedEventHandler GetFlightPriceCompleted;
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/RegisterCompany", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void RegisterCompany(string company) {
+            this.Invoke("RegisterCompany", new object[] {
+                        company});
+        }
+        
+        /// <remarks/>
+        public void RegisterCompanyAsync(string company) {
+            this.RegisterCompanyAsync(company, null);
+        }
+        
+        /// <remarks/>
+        public void RegisterCompanyAsync(string company, object userState) {
+            if ((this.RegisterCompanyOperationCompleted == null)) {
+                this.RegisterCompanyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRegisterCompanyOperationCompleted);
+            }
+            this.InvokeAsync("RegisterCompany", new object[] {
+                        company}, this.RegisterCompanyOperationCompleted, userState);
+        }
+        
+        private void OnRegisterCompanyOperationCompleted(object arg) {
+            if ((this.RegisterCompanyCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RegisterCompanyCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/Pay", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void Pay() {
+            this.Invoke("Pay", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void PayAsync() {
+            this.PayAsync(null);
+        }
+        
+        /// <remarks/>
+        public void PayAsync(object userState) {
+            if ((this.PayOperationCompleted == null)) {
+                this.PayOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPayOperationCompleted);
+            }
+            this.InvokeAsync("Pay", new object[0], this.PayOperationCompleted, userState);
+        }
+        
+        private void OnPayOperationCompleted(object arg) {
+            if ((this.PayCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.PayCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/PayForTimeInMilliSeconds", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void PayForTimeInMilliSeconds(long time) {
+            this.Invoke("PayForTimeInMilliSeconds", new object[] {
+                        time});
+        }
+        
+        /// <remarks/>
+        public void PayForTimeInMilliSecondsAsync(long time) {
+            this.PayForTimeInMilliSecondsAsync(time, null);
+        }
+        
+        /// <remarks/>
+        public void PayForTimeInMilliSecondsAsync(long time, object userState) {
+            if ((this.PayForTimeInMilliSecondsOperationCompleted == null)) {
+                this.PayForTimeInMilliSecondsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPayForTimeInMilliSecondsOperationCompleted);
+            }
+            this.InvokeAsync("PayForTimeInMilliSeconds", new object[] {
+                        time}, this.PayForTimeInMilliSecondsOperationCompleted, userState);
+        }
+        
+        private void OnPayForTimeInMilliSecondsOperationCompleted(object arg) {
+            if ((this.PayForTimeInMilliSecondsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.PayForTimeInMilliSecondsCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/BuyTicket", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void BuyTicket(string departure, string arrival, string name, string surname) {
-            this.Invoke("BuyTicket", new object[] {
+        public bool BuyTicket(string departure, string arrival, string name, string surname) {
+            object[] results = this.Invoke("BuyTicket", new object[] {
                         departure,
                         arrival,
                         name,
                         surname});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -188,15 +286,16 @@ namespace FlightServer.localhost {
         private void OnBuyTicketOperationCompleted(object arg) {
             if ((this.BuyTicketCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.BuyTicketCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.BuyTicketCompleted(this, new BuyTicketCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetAllFlights", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetAllFlights() {
+        public bool GetAllFlights(out System.Data.DataTable table) {
             object[] results = this.Invoke("GetAllFlights", new object[0]);
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -221,11 +320,12 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetFlightPriceId", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetFlightPriceId(string departure, string arrival) {
+        public bool GetFlightPriceId(string departure, string arrival, out int id) {
             object[] results = this.Invoke("GetFlightPriceId", new object[] {
                         departure,
                         arrival});
-            return ((int)(results[0]));
+            id = ((int)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -252,12 +352,13 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/UpdateFlightPrice", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void UpdateFlightPrice(int flightPriceId, string departure, string arrival, int price) {
-            this.Invoke("UpdateFlightPrice", new object[] {
+        public bool UpdateFlightPrice(int flightPriceId, string departure, string arrival, int price) {
+            object[] results = this.Invoke("UpdateFlightPrice", new object[] {
                         flightPriceId,
                         departure,
                         arrival,
                         price});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -280,15 +381,16 @@ namespace FlightServer.localhost {
         private void OnUpdateFlightPriceOperationCompleted(object arg) {
             if ((this.UpdateFlightPriceCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.UpdateFlightPriceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.UpdateFlightPriceCompleted(this, new UpdateFlightPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetFlightsPrice", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetFlightsPrice() {
+        public bool GetFlightsPrice(out System.Data.DataTable table) {
             object[] results = this.Invoke("GetFlightsPrice", new object[0]);
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -313,11 +415,12 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/AddFlightPrice", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void AddFlightPrice(string departure, string arrival, int price) {
-            this.Invoke("AddFlightPrice", new object[] {
+        public bool AddFlightPrice(string departure, string arrival, int price) {
+            object[] results = this.Invoke("AddFlightPrice", new object[] {
                         departure,
                         arrival,
                         price});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -339,15 +442,16 @@ namespace FlightServer.localhost {
         private void OnAddFlightPriceOperationCompleted(object arg) {
             if ((this.AddFlightPriceCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.AddFlightPriceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.AddFlightPriceCompleted(this, new AddFlightPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/CancelTicket", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void CancelTicket(int flightId) {
-            this.Invoke("CancelTicket", new object[] {
+        public bool CancelTicket(int flightId) {
+            object[] results = this.Invoke("CancelTicket", new object[] {
                         flightId});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -367,18 +471,19 @@ namespace FlightServer.localhost {
         private void OnCancelTicketOperationCompleted(object arg) {
             if ((this.CancelTicketCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CancelTicketCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CancelTicketCompleted(this, new CancelTicketCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/UpdateTicket", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void UpdateTicket(int flightId, int flightPriceId, string name, string surname) {
-            this.Invoke("UpdateTicket", new object[] {
+        public bool UpdateTicket(int flightId, int flightPriceId, string name, string surname) {
+            object[] results = this.Invoke("UpdateTicket", new object[] {
                         flightId,
                         flightPriceId,
                         name,
                         surname});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -401,16 +506,17 @@ namespace FlightServer.localhost {
         private void OnUpdateTicketOperationCompleted(object arg) {
             if ((this.UpdateTicketCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.UpdateTicketCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.UpdateTicketCompleted(this, new UpdateTicketCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/DeleteFlightPrice", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void DeleteFlightPrice(string departure, string arrival) {
-            this.Invoke("DeleteFlightPrice", new object[] {
+        public bool DeleteFlightPrice(string departure, string arrival) {
+            object[] results = this.Invoke("DeleteFlightPrice", new object[] {
                         departure,
                         arrival});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -431,16 +537,17 @@ namespace FlightServer.localhost {
         private void OnDeleteFlightPriceOperationCompleted(object arg) {
             if ((this.DeleteFlightPriceCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.DeleteFlightPriceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.DeleteFlightPriceCompleted(this, new DeleteFlightPriceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetArrivalCitiesByDeparture", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetArrivalCitiesByDeparture(string departure) {
+        public bool GetArrivalCitiesByDeparture(string departure, out System.Data.DataTable table) {
             object[] results = this.Invoke("GetArrivalCitiesByDeparture", new object[] {
                         departure});
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -466,9 +573,10 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/AddCity", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void AddCity(string city) {
-            this.Invoke("AddCity", new object[] {
+        public bool AddCity(string city) {
+            object[] results = this.Invoke("AddCity", new object[] {
                         city});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -488,15 +596,16 @@ namespace FlightServer.localhost {
         private void OnAddCityOperationCompleted(object arg) {
             if ((this.AddCityCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.AddCityCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.AddCityCompleted(this, new AddCityCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/DeleteCity", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void DeleteCity(string city) {
-            this.Invoke("DeleteCity", new object[] {
+        public bool DeleteCity(string city) {
+            object[] results = this.Invoke("DeleteCity", new object[] {
                         city});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -516,16 +625,17 @@ namespace FlightServer.localhost {
         private void OnDeleteCityOperationCompleted(object arg) {
             if ((this.DeleteCityCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.DeleteCityCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.DeleteCityCompleted(this, new DeleteCityCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/AddCustomer", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void AddCustomer(string name, string surname) {
-            this.Invoke("AddCustomer", new object[] {
+        public bool AddCustomer(string name, string surname) {
+            object[] results = this.Invoke("AddCustomer", new object[] {
                         name,
                         surname});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -546,15 +656,16 @@ namespace FlightServer.localhost {
         private void OnAddCustomerOperationCompleted(object arg) {
             if ((this.AddCustomerCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.AddCustomerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.AddCustomerCompleted(this, new AddCustomerCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetCustomers", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetCustomers() {
+        public bool GetCustomers(out System.Data.DataTable table) {
             object[] results = this.Invoke("GetCustomers", new object[0]);
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -579,11 +690,12 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetCustomerFlights", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetCustomerFlights(string name, string surname) {
+        public bool GetCustomerFlights(string name, string surname, out System.Data.DataTable table) {
             object[] results = this.Invoke("GetCustomerFlights", new object[] {
                         name,
                         surname});
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -610,12 +722,13 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/UpdateCustomer", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void UpdateCustomer(string newName, string newSurname, string oldName, string oldSurname) {
-            this.Invoke("UpdateCustomer", new object[] {
+        public bool UpdateCustomer(string newName, string newSurname, string oldName, string oldSurname) {
+            object[] results = this.Invoke("UpdateCustomer", new object[] {
                         newName,
                         newSurname,
                         oldName,
                         oldSurname});
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -638,15 +751,16 @@ namespace FlightServer.localhost {
         private void OnUpdateCustomerOperationCompleted(object arg) {
             if ((this.UpdateCustomerCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.UpdateCustomerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.UpdateCustomerCompleted(this, new UpdateCustomerCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetFlightsCities", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataTable GetFlightsCities() {
+        public bool GetFlightsCities(out System.Data.DataTable table) {
             object[] results = this.Invoke("GetFlightsCities", new object[0]);
-            return ((System.Data.DataTable)(results[0]));
+            table = ((System.Data.DataTable)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -671,11 +785,12 @@ namespace FlightServer.localhost {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://flights.com/GetFlightPrice", RequestNamespace="http://flights.com/", ResponseNamespace="http://flights.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetFlightPrice(string departure, string arrival) {
+        public bool GetFlightPrice(string departure, string arrival, out int price) {
             object[] results = this.Invoke("GetFlightPrice", new object[] {
                         departure,
                         arrival});
-            return ((int)(results[0]));
+            price = ((int)(results[1]));
+            return ((bool)(results[0]));
         }
         
         /// <remarks/>
@@ -721,7 +836,41 @@ namespace FlightServer.localhost {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void BuyTicketCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void RegisterCompanyCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void PayCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void PayForTimeInMilliSecondsCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void BuyTicketCompletedEventHandler(object sender, BuyTicketCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class BuyTicketCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal BuyTicketCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -741,10 +890,18 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
@@ -767,17 +924,47 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public int Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public int id {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[1]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void UpdateFlightPriceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void UpdateFlightPriceCompletedEventHandler(object sender, UpdateFlightPriceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class UpdateFlightPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal UpdateFlightPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -797,29 +984,125 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void AddFlightPriceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void AddFlightPriceCompletedEventHandler(object sender, AddFlightPriceCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void CancelTicketCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class AddFlightPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal AddFlightPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void UpdateTicketCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void CancelTicketCompletedEventHandler(object sender, CancelTicketCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void DeleteFlightPriceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CancelTicketCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CancelTicketCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void UpdateTicketCompletedEventHandler(object sender, UpdateTicketCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class UpdateTicketCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal UpdateTicketCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void DeleteFlightPriceCompletedEventHandler(object sender, DeleteFlightPriceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class DeleteFlightPriceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal DeleteFlightPriceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -839,25 +1122,99 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void AddCityCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void AddCityCompletedEventHandler(object sender, AddCityCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void DeleteCityCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class AddCityCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal AddCityCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void AddCustomerCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void DeleteCityCompletedEventHandler(object sender, DeleteCityCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class DeleteCityCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal DeleteCityCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void AddCustomerCompletedEventHandler(object sender, AddCustomerCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class AddCustomerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal AddCustomerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -877,10 +1234,18 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
@@ -903,17 +1268,47 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void UpdateCustomerCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void UpdateCustomerCompletedEventHandler(object sender, UpdateCustomerCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class UpdateCustomerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal UpdateCustomerCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -933,10 +1328,18 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public System.Data.DataTable Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((System.Data.DataTable)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable table {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[1]));
             }
         }
     }
@@ -959,10 +1362,18 @@ namespace FlightServer.localhost {
         }
         
         /// <remarks/>
-        public int Result {
+        public bool Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
+                return ((bool)(this.results[0]));
+            }
+        }
+        
+        /// <remarks/>
+        public int price {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[1]));
             }
         }
     }
