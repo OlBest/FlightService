@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://web.dkps.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="PaymentServiceService" targetNamespace="http://web.dkps.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://188.93.21.52:8380/DKPS/payment?xsd=1" namespace="http://web.dkps.com/" />
+    </xsd:schema>
+  </types>
+  <message name="payForMilliseconds">
+    <part name="parameters" element="tns:payForMilliseconds" />
+  </message>
+  <message name="payForMillisecondsResponse">
+    <part name="parameters" element="tns:payForMillisecondsResponse" />
+  </message>
+  <message name="pay">
+    <part name="parameters" element="tns:pay" />
+  </message>
+  <message name="payResponse">
+    <part name="parameters" element="tns:payResponse" />
+  </message>
+  <message name="isPayed">
+    <part name="parameters" element="tns:isPayed" />
+  </message>
+  <message name="isPayedResponse">
+    <part name="parameters" element="tns:isPayedResponse" />
+  </message>
+  <portType name="IPaymentService">
+    <operation name="payForMilliseconds">
+      <input wsam:Action="http://web.dkps.com/IPaymentService/payForMillisecondsRequest" message="tns:payForMilliseconds" />
+      <output wsam:Action="http://web.dkps.com/IPaymentService/payForMillisecondsResponse" message="tns:payForMillisecondsResponse" />
+    </operation>
+    <operation name="pay">
+      <input wsam:Action="http://web.dkps.com/IPaymentService/payRequest" message="tns:pay" />
+      <output wsam:Action="http://web.dkps.com/IPaymentService/payResponse" message="tns:payResponse" />
+    </operation>
+    <operation name="isPayed">
+      <input wsam:Action="http://web.dkps.com/IPaymentService/isPayedRequest" message="tns:isPayed" />
+      <output wsam:Action="http://web.dkps.com/IPaymentService/isPayedResponse" message="tns:isPayedResponse" />
+    </operation>
+  </portType>
+  <binding name="PaymentServicePortBinding" type="tns:IPaymentService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="payForMilliseconds">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="pay">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="isPayed">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PaymentServiceService">
+    <port name="PaymentServicePort" binding="tns:PaymentServicePortBinding">
+      <soap:address location="http://188.93.21.52:8380/DKPS/payment" />
+    </port>
+  </service>
+</definitions>

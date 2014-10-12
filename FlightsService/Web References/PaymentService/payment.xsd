@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://web.dkps.com/" targetNamespace="http://web.dkps.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="isPayed" type="tns:isPayed" />
+  <xs:element name="isPayedResponse" type="tns:isPayedResponse" />
+  <xs:element name="pay" type="tns:pay" />
+  <xs:element name="payForMilliseconds" type="tns:payForMilliseconds" />
+  <xs:element name="payForMillisecondsResponse" type="tns:payForMillisecondsResponse" />
+  <xs:element name="payResponse" type="tns:payResponse" />
+  <xs:complexType name="pay">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isPayed">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isPayedResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payForMilliseconds">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element name="arg2" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payForMillisecondsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
