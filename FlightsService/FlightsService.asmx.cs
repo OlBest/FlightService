@@ -47,18 +47,20 @@ namespace FlightsService
         }
 
         [WebMethod]
-        public void Pay()
+        public string Pay()
         {
-            _paymentClient.pay(_serviceId, _company);
+            var result =_paymentClient.pay(_serviceId, _company);
             _isPayed = _paymentClient.isPayed(_serviceId, _company);
+            return result;
         }
 
         [WebMethod]
-        public  void PayForTimeInMilliSeconds(long time)
+        public  string PayForTimeInMilliSeconds(long time)
         {
-            _paymentClient.payForMilliseconds(_serviceId, _company, time);
+            var result =_paymentClient.payForMilliseconds(_serviceId, _company, time);
             _isPayed = _paymentClient.isPayed(_serviceId, _company);
             _timer = new Timer(PayedTimeEnded,null,time,-1);
+            return result;
         }
 
         [WebMethod]
