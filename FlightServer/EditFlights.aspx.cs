@@ -15,6 +15,7 @@ namespace FlightServer
         {
             if (IsPostBack)
                 return;
+            idFlightPrice = -1;
             UpdateAllTable();
         }
 
@@ -69,17 +70,18 @@ namespace FlightServer
             UpdateAllTable();
         }
 
-        private int idFlightPrice = -1;
+        private static int idFlightPrice;
 
         protected void OnRowEditing(object sender, GridViewEditEventArgs e)
         {
             string departureCity = GridView.Rows[e.NewEditIndex].Cells[1].Text;
             string arrivalCity = GridView.Rows[e.NewEditIndex].Cells[2].Text;
-            Service.getInstanse().flightService.GetFlightPriceId(departureCity, arrivalCity, out idFlightPrice);
-            
-            GridView.EditIndex = e.NewEditIndex;
-            //GridView.DataBind();
-
+            FlightsService service = Service.getInstanse().flightService;
+            if (service.GetFlightPriceId(departureCity, arrivalCity, out idFlightPrice))
+            {
+                GridView.EditIndex = e.NewEditIndex;
+                UpdateAllTable();
+            }
         }
 
         protected void OnRowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -96,18 +98,21 @@ namespace FlightServer
             int price = Convert.ToInt32(priceStr);
             FlightsService service = Service.getInstanse().flightService;
             service.UpdateFlightPrice(idFlightPrice, departure, arrival, price);
-            //UpdateAllTable();
+            GridView.EditIndex = -1;
+            UpdateAllTable();
         }
 
         protected void OnRowUpdated(object sender, GridViewUpdatedEventArgs e)
         {
             GridView.EditIndex = -1;
-            DataBind();
+            UpdateAllTable();
         }
 
         protected void OnRowCanceling(object sender, GridViewCancelEditEventArgs e)
         {
             idFlightPrice = -1;
+            GridView.EditIndex = -1;
+            UpdateAllTable();
         }
     }
 }

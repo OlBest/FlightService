@@ -15,10 +15,11 @@ namespace FlightServer
         {
             if (IsPostBack)
                 return;
+            IdTickets = new List<int>();
             LoadData();
         }
 
-        private List<int> IdTickets = new List<int>();
+        private static List<int> IdTickets;
 
         private void LoadData()
         {
@@ -48,22 +49,19 @@ namespace FlightServer
 
         protected void OnRowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            GridView.EditIndex = e.NewEditIndex;
+            LoadData();
         }
 
         protected void OnRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int Id = IdTickets[e.RowIndex];
-            FlightsService service = Service.getInstanse().flightService;      
+            FlightsService service = Service.getInstanse().flightService;    
             service.CancelTicket(Id);
             LoadData();
         }
 
-//         protected void OnRowUpdated(object sender, GridViewUpdatedEventArgs e)
-//         {
-// 
-//         }
-       
+   
         protected void OnRowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int id = IdTickets[e.RowIndex];
@@ -74,11 +72,14 @@ namespace FlightServer
             int price = Convert.ToInt32(e.NewValues[2].ToString());
             string name = e.NewValues[3].ToString();
             string surname = e.NewValues[4].ToString();
-
-            int FlightPriceId;
-            if (service.GetFlightPriceId(departure, arrival, out FlightPriceId))
-                 if (service.UpdateTicket(id, FlightPriceId, name, surname))
-                     LoadData();
+           
+            int idFlightPriceId;
+            if (service.GetFlightPriceId(departure, arrival, out idFlightPriceId))
+                if (service.UpdateTicket(id, idFlightPriceId, name, surname))
+                {
+                    GridView.EditIndex = -1;
+                    LoadData();
+                }         
         }
 
         private void UpdateEnableAddTicket()
@@ -112,14 +113,14 @@ namespace FlightServer
                 return;
 
             DataTable FlightCityTable;
-            if (!Service.getInstanse().flightService.GetArrivalCitiesByDeparture(DropDownListDeparture.SelectedValue, out FlightCityTable))
-                return;
-           
-            DropDownListArrival.Items.Clear();
-            foreach (DataRow row in FlightCityTable.Rows)
-                 DropDownListArrival.Items.Add((string)row[0]);
-            
-            UpdateEnableAddTicket();
+            if (Service.getInstanse().flightService.GetArrivalCitiesByDeparture(DropDownListDeparture.SelectedValue, out FlightCityTable))
+            {
+                DropDownListArrival.Items.Clear();
+                foreach (DataRow row in FlightCityTable.Rows)
+                    DropDownListArrival.Items.Add((string)row[0]);
+
+                UpdateEnableAddTicket();
+            }
         }
 
         protected void OnChangeArricalCity(object sender, EventArgs e)
