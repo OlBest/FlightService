@@ -39,7 +39,7 @@ namespace FlightsService.PaymentService {
         
         /// <remarks/>
         public PaymentServiceService() {
-            this.Url = global::FlightsService.Properties.Settings.Default.FlightsService_PaymentSerivce_PaymentServiceService;
+            this.Url = global::FlightsService.Properties.Settings.Default.FlightsService_PaymentService_PaymentServiceService;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

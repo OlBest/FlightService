@@ -415,13 +415,6 @@ namespace FlightsService.App_Data {
             this.tableFlightsPrice = new FlightsPriceDataTable();
             base.Tables.Add(this.tableFlightsPrice);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE1", new global::System.Data.DataColumn[] {
-                        this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableFLIGHTSPRICE.ArrivalColumn});
-            this.tableFLIGHTSPRICE.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE", new global::System.Data.DataColumn[] {
                         this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableFLIGHTSPRICE.DepartureColumn});
@@ -429,16 +422,23 @@ namespace FlightsService.App_Data {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_CUSTOMER_FLIGHTS", new global::System.Data.DataColumn[] {
-                        this.tableCUSTOMER.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableFLIGHTS.CustomerIdColumn});
-            this.tableFLIGHTS.Constraints.Add(fkc);
+            fkc = new global::System.Data.ForeignKeyConstraint("CITIES_FLIGHTSPRICE1", new global::System.Data.DataColumn[] {
+                        this.tableCITIES.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableFLIGHTSPRICE.ArrivalColumn});
+            this.tableFLIGHTSPRICE.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_FLIGHTSPRICE_FLIGHTS", new global::System.Data.DataColumn[] {
                         this.tableFLIGHTSPRICE.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableFLIGHTS.FlightsPriceIdColumn});
+            this.tableFLIGHTS.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_CUSTOMER_FLIGHTS", new global::System.Data.DataColumn[] {
+                        this.tableCUSTOMER.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableFLIGHTS.CustomerIdColumn});
             this.tableFLIGHTS.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
@@ -4069,7 +4069,7 @@ namespace FlightsService.App_Data.FlightsDataSetTableAdapters {
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@surname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Surname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT COUNT(*) FROM CUSTOMER";
+            this._commandCollection[3].CommandText = "SELECT MAX(Id) AS Expr1\r\nFROM     CUSTOMER";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
@@ -4312,7 +4312,7 @@ namespace FlightsService.App_Data.FlightsDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<int> GetNumberCustomers() {
+        public virtual object GetNumberCustomers() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4330,10 +4330,10 @@ namespace FlightsService.App_Data.FlightsDataSetTableAdapters {
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<int>();
+                return null;
             }
             else {
-                return new global::System.Nullable<int>(((int)(returnValue)));
+                return ((object)(returnValue));
             }
         }
         
@@ -4576,7 +4576,7 @@ WHERE  (Departure =
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Arrival", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT COUNT(*) FROM FLIGHTSPRICE";
+            this._commandCollection[4].CommandText = "SELECT MAX(Id) AS Expr1\r\nFROM     FLIGHTSPRICE";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
@@ -4846,7 +4846,7 @@ WHERE  (Id = @Original_Id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<int> GetNumberFlightPrice() {
+        public virtual object GetNumberFlightPrice() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4864,10 +4864,10 @@ WHERE  (Id = @Original_Id)";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<int>();
+                return null;
             }
             else {
-                return new global::System.Nullable<int>(((int)(returnValue)));
+                return ((object)(returnValue));
             }
         }
         
@@ -5107,7 +5107,7 @@ WHERE  (Id = @Original_Id)";
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT COUNT(*) FROM FLIGHTS";
+            this._commandCollection[2].CommandText = "SELECT MAX(Id) AS Expr1\r\nFROM     FLIGHTS";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
@@ -5286,7 +5286,7 @@ WHERE  (Id = @Original_Id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<int> GetNumberFlights() {
+        public virtual object GetNumberFlights() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5304,10 +5304,10 @@ WHERE  (Id = @Original_Id)";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<int>();
+                return null;
             }
             else {
-                return new global::System.Nullable<int>(((int)(returnValue)));
+                return ((object)(returnValue));
             }
         }
         
@@ -5544,7 +5544,7 @@ WHERE  (Id = @Original_Id)";
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@City", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "City", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT COUNT(*) AS Expr1\r\nFROM     CITIES";
+            this._commandCollection[4].CommandText = "SELECT MAX(Id) AS Expr1\r\nFROM     CITIES";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5784,7 +5784,7 @@ WHERE  (Id = @Original_Id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<int> GetNumberCities() {
+        public virtual object GetNumberCities() {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5802,10 +5802,10 @@ WHERE  (Id = @Original_Id)";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<int>();
+                return null;
             }
             else {
-                return new global::System.Nullable<int>(((int)(returnValue)));
+                return ((object)(returnValue));
             }
         }
     }

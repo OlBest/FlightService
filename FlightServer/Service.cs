@@ -11,8 +11,7 @@ namespace FlightServer
         private Service()
         {
             _flightService = new FlightsService();
-            _flightService.RegisterCompany("BSUFlight");
-            _flightService.Pay();
+            _flightService.PayForTimeInMilliSeconds(10000);
         }
 
         static Service _service = new Service();

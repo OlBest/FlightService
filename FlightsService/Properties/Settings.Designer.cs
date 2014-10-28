@@ -27,9 +27,9 @@ namespace FlightsService.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://188.93.21.52:8380/DKPS/payment")]
-        public string FlightsService_PaymentSerivce_PaymentServiceService {
+        public string FlightsService_PaymentService_PaymentServiceService {
             get {
-                return ((string)(this["FlightsService_PaymentSerivce_PaymentServiceService"]));
+                return ((string)(this["FlightsService_PaymentService_PaymentServiceService"]));
             }
         }
         
@@ -37,9 +37,9 @@ namespace FlightsService.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://188.93.21.52:8380/DKPS/account")]
-        public string FlightsService_WebReference_AccountServiceService {
+        public string FlightsService_AccountReference_AccountServiceService {
             get {
-                return ((string)(this["FlightsService_WebReference_AccountServiceService"]));
+                return ((string)(this["FlightsService_AccountReference_AccountServiceService"]));
             }
         }
     }

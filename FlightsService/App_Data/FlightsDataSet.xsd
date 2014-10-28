@@ -78,10 +78,11 @@ WHERE  (Name = @name) AND (Surname = @surname)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberCustomers" Modifier="Public" Name="GetNumberCustomers" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="GetNumberCustomers">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberCustomers" Modifier="Public" Name="GetNumberCustomers" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="GetNumberCustomers">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT COUNT(*) FROM CUSTOMER</CommandText>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT MAX(Id) AS Expr1
+FROM     CUSTOMER</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -151,7 +152,7 @@ WHERE  (Id = @Original_Id)</CommandText>
               <Mapping SourceColumn="Price" DataSetColumn="Price" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFlightPrice" Modifier="Public" Name="DeleteFlightPrice" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="DeleteFlightPrice">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFlightPrice" Modifier="Public" Name="DeleteFlightPrice" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteFlightPrice">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM FLIGHTSPRICE
@@ -162,7 +163,7 @@ WHERE  (Id = @Original_Id)</CommandText>
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.FLIGHTSPRICE" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetFlightPrice" Modifier="Public" Name="GetFlightPrice" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="GetFlightPrice">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.FLIGHTSPRICE" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetFlightPrice" Modifier="Public" Name="GetFlightPrice" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="GetFlightPrice">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT Price
@@ -181,7 +182,7 @@ WHERE  (Departure =
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.FLIGHTSPRICE" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetFlightsPriceId" Modifier="Public" Name="GetFlightsPriceId" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="GetFlightsPriceId">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.FLIGHTSPRICE" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetFlightsPriceId" Modifier="Public" Name="GetFlightsPriceId" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="GetFlightsPriceId">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Id
@@ -200,10 +201,11 @@ WHERE  (Departure =
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberFlightPrice" Modifier="Public" Name="GetNumberFlightPrice" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="GetNumberFlightPrice">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberFlightPrice" Modifier="Public" Name="GetNumberFlightPrice" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="GetNumberFlightPrice">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT COUNT(*) FROM FLIGHTSPRICE</CommandText>
+                    <CommandText>SELECT MAX(Id) AS Expr1
+FROM     FLIGHTSPRICE</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -223,7 +225,7 @@ VALUES (@Id,@Departure,@Arrival,@Price)</CommandText>
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateFlightPrice" Modifier="Public" Name="UpdateFlightPrice" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdateFlightPrice">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateFlightPrice" Modifier="Public" Name="UpdateFlightPrice" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="UpdateFlightPrice">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE FLIGHTSPRICE
@@ -292,7 +294,7 @@ WHERE  (Id = @Original_Id)</CommandText>
               <Mapping SourceColumn="CustomerId" DataSetColumn="CustomerId" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFlight" Modifier="Public" Name="DeleteFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="DeleteFlight">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteFlight" Modifier="Public" Name="DeleteFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteFlight">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM FLIGHTS
@@ -303,15 +305,16 @@ WHERE  (Id = @Original_Id)</CommandText>
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberFlights" Modifier="Public" Name="GetNumberFlights" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="GetNumberFlights">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberFlights" Modifier="Public" Name="GetNumberFlights" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="GetNumberFlights">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT COUNT(*) FROM FLIGHTS</CommandText>
+                    <CommandText>SELECT MAX(Id) AS Expr1
+FROM     FLIGHTS</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertFlight" Modifier="Public" Name="InsertFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="InsertFlight">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertFlight" Modifier="Public" Name="InsertFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="InsertFlight">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO FLIGHTS
@@ -325,7 +328,7 @@ VALUES (@Id,@FlightsPriceId,@CustomerId)</CommandText>
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateFlight" Modifier="Public" Name="UpdateFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdateFlight">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateFlight" Modifier="Public" Name="UpdateFlight" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="UpdateFlight">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE FLIGHTS
@@ -395,7 +398,7 @@ WHERE  (Id = @Original_Id)</CommandText>
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteCity" Modifier="Public" Name="DeleteCity" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="DeleteCity">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteCity" Modifier="Public" Name="DeleteCity" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeleteCity">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM CITIES
@@ -409,7 +412,7 @@ WHERE  (Id =
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.CITIES" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetCityId" Modifier="Public" Name="GetCityId" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="GetCityId">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectName="dbo.CITIES" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="GetCityId" Modifier="Public" Name="GetCityId" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="GetCityId">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Id
@@ -421,10 +424,10 @@ WHERE  (City = @City)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberCities" Modifier="Public" Name="GetNumberCities" QueryType="Scalar" ScalarCallRetval="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="GetNumberCities">
+              <DbSource ConnectionRef="FlightsDataBaseConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetNumberCities" Modifier="Public" Name="GetNumberCities" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="GetNumberCities">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT COUNT(*) AS Expr1
+                    <CommandText>SELECT MAX(Id) AS Expr1
 FROM     CITIES</CommandText>
                     <Parameters />
                   </DbCommand>
@@ -563,7 +566,7 @@ FROM     FLIGHTSPRICE INNER JOIN
   <xs:element name="FlightsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FlightsDataSet" msprop:Generator_UserDSName="FlightsDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="CUSTOMER" msprop:Generator_TableClassName="CUSTOMERDataTable" msprop:Generator_TableVarName="tableCUSTOMER" msprop:Generator_RowChangedName="CUSTOMERRowChanged" msprop:Generator_TablePropName="CUSTOMER" msprop:Generator_RowDeletingName="CUSTOMERRowDeleting" msprop:Generator_RowChangingName="CUSTOMERRowChanging" msprop:Generator_RowEvHandlerName="CUSTOMERRowChangeEventHandler" msprop:Generator_RowDeletedName="CUSTOMERRowDeleted" msprop:Generator_RowClassName="CUSTOMERRow" msprop:Generator_UserTableName="CUSTOMER" msprop:Generator_RowEvArgName="CUSTOMERRowChangeEvent">
+        <xs:element name="CUSTOMER" msprop:Generator_TableClassName="CUSTOMERDataTable" msprop:Generator_TableVarName="tableCUSTOMER" msprop:Generator_TablePropName="CUSTOMER" msprop:Generator_RowDeletingName="CUSTOMERRowDeleting" msprop:Generator_RowChangingName="CUSTOMERRowChanging" msprop:Generator_RowEvHandlerName="CUSTOMERRowChangeEventHandler" msprop:Generator_RowDeletedName="CUSTOMERRowDeleted" msprop:Generator_UserTableName="CUSTOMER" msprop:Generator_RowChangedName="CUSTOMERRowChanged" msprop:Generator_RowEvArgName="CUSTOMERRowChangeEvent" msprop:Generator_RowClassName="CUSTOMERRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -584,7 +587,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FLIGHTSPRICE" msprop:Generator_TableClassName="FLIGHTSPRICEDataTable" msprop:Generator_TableVarName="tableFLIGHTSPRICE" msprop:Generator_RowChangedName="FLIGHTSPRICERowChanged" msprop:Generator_TablePropName="FLIGHTSPRICE" msprop:Generator_RowDeletingName="FLIGHTSPRICERowDeleting" msprop:Generator_RowChangingName="FLIGHTSPRICERowChanging" msprop:Generator_RowEvHandlerName="FLIGHTSPRICERowChangeEventHandler" msprop:Generator_RowDeletedName="FLIGHTSPRICERowDeleted" msprop:Generator_RowClassName="FLIGHTSPRICERow" msprop:Generator_UserTableName="FLIGHTSPRICE" msprop:Generator_RowEvArgName="FLIGHTSPRICERowChangeEvent">
+        <xs:element name="FLIGHTSPRICE" msprop:Generator_TableClassName="FLIGHTSPRICEDataTable" msprop:Generator_TableVarName="tableFLIGHTSPRICE" msprop:Generator_TablePropName="FLIGHTSPRICE" msprop:Generator_RowDeletingName="FLIGHTSPRICERowDeleting" msprop:Generator_RowChangingName="FLIGHTSPRICERowChanging" msprop:Generator_RowEvHandlerName="FLIGHTSPRICERowChangeEventHandler" msprop:Generator_RowDeletedName="FLIGHTSPRICERowDeleted" msprop:Generator_UserTableName="FLIGHTSPRICE" msprop:Generator_RowChangedName="FLIGHTSPRICERowChanged" msprop:Generator_RowEvArgName="FLIGHTSPRICERowChangeEvent" msprop:Generator_RowClassName="FLIGHTSPRICERow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -594,7 +597,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FLIGHTS" msprop:Generator_TableClassName="FLIGHTSDataTable" msprop:Generator_TableVarName="tableFLIGHTS" msprop:Generator_RowChangedName="FLIGHTSRowChanged" msprop:Generator_TablePropName="FLIGHTS" msprop:Generator_RowDeletingName="FLIGHTSRowDeleting" msprop:Generator_RowChangingName="FLIGHTSRowChanging" msprop:Generator_RowEvHandlerName="FLIGHTSRowChangeEventHandler" msprop:Generator_RowDeletedName="FLIGHTSRowDeleted" msprop:Generator_RowClassName="FLIGHTSRow" msprop:Generator_UserTableName="FLIGHTS" msprop:Generator_RowEvArgName="FLIGHTSRowChangeEvent">
+        <xs:element name="FLIGHTS" msprop:Generator_TableClassName="FLIGHTSDataTable" msprop:Generator_TableVarName="tableFLIGHTS" msprop:Generator_TablePropName="FLIGHTS" msprop:Generator_RowDeletingName="FLIGHTSRowDeleting" msprop:Generator_RowChangingName="FLIGHTSRowChanging" msprop:Generator_RowEvHandlerName="FLIGHTSRowChangeEventHandler" msprop:Generator_RowDeletedName="FLIGHTSRowDeleted" msprop:Generator_UserTableName="FLIGHTS" msprop:Generator_RowChangedName="FLIGHTSRowChanged" msprop:Generator_RowEvArgName="FLIGHTSRowChangeEvent" msprop:Generator_RowClassName="FLIGHTSRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -603,7 +606,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="CITIES" msprop:Generator_TableClassName="CITIESDataTable" msprop:Generator_TableVarName="tableCITIES" msprop:Generator_TablePropName="CITIES" msprop:Generator_RowDeletingName="CITIESRowDeleting" msprop:Generator_RowChangingName="CITIESRowChanging" msprop:Generator_RowEvHandlerName="CITIESRowChangeEventHandler" msprop:Generator_RowDeletedName="CITIESRowDeleted" msprop:Generator_UserTableName="CITIES" msprop:Generator_RowChangedName="CITIESRowChanged" msprop:Generator_RowEvArgName="CITIESRowChangeEvent" msprop:Generator_RowClassName="CITIESRow">
+        <xs:element name="CITIES" msprop:Generator_TableClassName="CITIESDataTable" msprop:Generator_TableVarName="tableCITIES" msprop:Generator_RowChangedName="CITIESRowChanged" msprop:Generator_TablePropName="CITIES" msprop:Generator_RowDeletingName="CITIESRowDeleting" msprop:Generator_RowChangingName="CITIESRowChanging" msprop:Generator_RowEvHandlerName="CITIESRowChangeEventHandler" msprop:Generator_RowDeletedName="CITIESRowDeleted" msprop:Generator_RowClassName="CITIESRow" msprop:Generator_UserTableName="CITIES" msprop:Generator_RowEvArgName="CITIESRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -617,7 +620,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="City" msprop:Generator_TableClassName="CityDataTable" msprop:Generator_TableVarName="tableCity" msprop:Generator_RowChangedName="CityRowChanged" msprop:Generator_TablePropName="City" msprop:Generator_RowDeletingName="CityRowDeleting" msprop:Generator_RowChangingName="CityRowChanging" msprop:Generator_RowEvHandlerName="CityRowChangeEventHandler" msprop:Generator_RowDeletedName="CityRowDeleted" msprop:Generator_RowClassName="CityRow" msprop:Generator_UserTableName="City" msprop:Generator_RowEvArgName="CityRowChangeEvent">
+        <xs:element name="City" msprop:Generator_TableClassName="CityDataTable" msprop:Generator_TableVarName="tableCity" msprop:Generator_TablePropName="City" msprop:Generator_RowDeletingName="CityRowDeleting" msprop:Generator_RowChangingName="CityRowChanging" msprop:Generator_RowEvHandlerName="CityRowChangeEventHandler" msprop:Generator_RowDeletedName="CityRowDeleted" msprop:Generator_UserTableName="City" msprop:Generator_RowChangedName="CityRowChanged" msprop:Generator_RowEvArgName="CityRowChangeEvent" msprop:Generator_RowClassName="CityRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="City" msprop:Generator_ColumnVarNameInTable="columnCity" msprop:Generator_ColumnPropNameInRow="City" msprop:Generator_ColumnPropNameInTable="CityColumn" msprop:Generator_UserColumnName="City">
@@ -630,7 +633,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="CustomerFlights" msprop:Generator_TableClassName="CustomerFlightsDataTable" msprop:Generator_TableVarName="tableCustomerFlights" msprop:Generator_RowChangedName="CustomerFlightsRowChanged" msprop:Generator_TablePropName="CustomerFlights" msprop:Generator_RowDeletingName="CustomerFlightsRowDeleting" msprop:Generator_RowChangingName="CustomerFlightsRowChanging" msprop:Generator_RowEvHandlerName="CustomerFlightsRowChangeEventHandler" msprop:Generator_RowDeletedName="CustomerFlightsRowDeleted" msprop:Generator_RowClassName="CustomerFlightsRow" msprop:Generator_UserTableName="CustomerFlights" msprop:Generator_RowEvArgName="CustomerFlightsRowChangeEvent">
+        <xs:element name="CustomerFlights" msprop:Generator_TableClassName="CustomerFlightsDataTable" msprop:Generator_TableVarName="tableCustomerFlights" msprop:Generator_TablePropName="CustomerFlights" msprop:Generator_RowDeletingName="CustomerFlightsRowDeleting" msprop:Generator_RowChangingName="CustomerFlightsRowChanging" msprop:Generator_RowEvHandlerName="CustomerFlightsRowChangeEventHandler" msprop:Generator_RowDeletedName="CustomerFlightsRowDeleted" msprop:Generator_UserTableName="CustomerFlights" msprop:Generator_RowChangedName="CustomerFlightsRowChanged" msprop:Generator_RowEvArgName="CustomerFlightsRowChangeEvent" msprop:Generator_RowClassName="CustomerFlightsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Departure" msprop:Generator_ColumnVarNameInTable="columnDeparture" msprop:Generator_ColumnPropNameInRow="Departure" msprop:Generator_ColumnPropNameInTable="DepartureColumn" msprop:Generator_UserColumnName="Departure">
@@ -651,7 +654,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Customers" msprop:Generator_TableClassName="CustomersDataTable" msprop:Generator_TableVarName="tableCustomers" msprop:Generator_RowChangedName="CustomersRowChanged" msprop:Generator_TablePropName="Customers" msprop:Generator_RowDeletingName="CustomersRowDeleting" msprop:Generator_RowChangingName="CustomersRowChanging" msprop:Generator_RowEvHandlerName="CustomersRowChangeEventHandler" msprop:Generator_RowDeletedName="CustomersRowDeleted" msprop:Generator_RowClassName="CustomersRow" msprop:Generator_UserTableName="Customers" msprop:Generator_RowEvArgName="CustomersRowChangeEvent">
+        <xs:element name="Customers" msprop:Generator_TableClassName="CustomersDataTable" msprop:Generator_TableVarName="tableCustomers" msprop:Generator_TablePropName="Customers" msprop:Generator_RowDeletingName="CustomersRowDeleting" msprop:Generator_RowChangingName="CustomersRowChanging" msprop:Generator_RowEvHandlerName="CustomersRowChangeEventHandler" msprop:Generator_RowDeletedName="CustomersRowDeleted" msprop:Generator_UserTableName="Customers" msprop:Generator_RowChangedName="CustomersRowChanged" msprop:Generator_RowEvArgName="CustomersRowChangeEvent" msprop:Generator_RowClassName="CustomersRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name">
@@ -671,7 +674,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Flights" msprop:Generator_TableClassName="FlightsDataTable" msprop:Generator_TableVarName="tableFlights" msprop:Generator_TablePropName="Flights" msprop:Generator_RowDeletingName="FlightsRowDeleting" msprop:Generator_RowChangingName="FlightsRowChanging" msprop:Generator_RowEvHandlerName="FlightsRowChangeEventHandler" msprop:Generator_RowDeletedName="FlightsRowDeleted" msprop:Generator_UserTableName="Flights" msprop:Generator_RowChangedName="FlightsRowChanged" msprop:Generator_RowEvArgName="FlightsRowChangeEvent" msprop:Generator_RowClassName="FlightsRow">
+        <xs:element name="Flights" msprop:Generator_TableClassName="FlightsDataTable" msprop:Generator_TableVarName="tableFlights" msprop:Generator_RowChangedName="FlightsRowChanged" msprop:Generator_TablePropName="Flights" msprop:Generator_RowDeletingName="FlightsRowDeleting" msprop:Generator_RowChangingName="FlightsRowChanging" msprop:Generator_RowEvHandlerName="FlightsRowChangeEventHandler" msprop:Generator_RowDeletedName="FlightsRowDeleted" msprop:Generator_RowClassName="FlightsRow" msprop:Generator_UserTableName="Flights" msprop:Generator_RowEvArgName="FlightsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -707,7 +710,7 @@ FROM     FLIGHTSPRICE INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FlightsPrice" msprop:Generator_TableClassName="FlightsPriceDataTable" msprop:Generator_TableVarName="tableFlightsPrice" msprop:Generator_TablePropName="FlightsPrice" msprop:Generator_RowDeletingName="FlightsPriceRowDeleting" msprop:Generator_RowChangingName="FlightsPriceRowChanging" msprop:Generator_RowEvHandlerName="FlightsPriceRowChangeEventHandler" msprop:Generator_RowDeletedName="FlightsPriceRowDeleted" msprop:Generator_UserTableName="FlightsPrice" msprop:Generator_RowChangedName="FlightsPriceRowChanged" msprop:Generator_RowEvArgName="FlightsPriceRowChangeEvent" msprop:Generator_RowClassName="FlightsPriceRow">
+        <xs:element name="FlightsPrice" msprop:Generator_TableClassName="FlightsPriceDataTable" msprop:Generator_TableVarName="tableFlightsPrice" msprop:Generator_RowChangedName="FlightsPriceRowChanged" msprop:Generator_TablePropName="FlightsPrice" msprop:Generator_RowDeletingName="FlightsPriceRowDeleting" msprop:Generator_RowChangingName="FlightsPriceRowChanging" msprop:Generator_RowEvHandlerName="FlightsPriceRowChangeEventHandler" msprop:Generator_RowDeletedName="FlightsPriceRowDeleted" msprop:Generator_RowClassName="FlightsPriceRow" msprop:Generator_UserTableName="FlightsPrice" msprop:Generator_RowEvArgName="FlightsPriceRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Departure" msprop:Generator_ColumnVarNameInTable="columnDeparture" msprop:Generator_ColumnPropNameInRow="Departure" msprop:Generator_ColumnPropNameInTable="DepartureColumn" msprop:Generator_UserColumnName="Departure">
@@ -750,21 +753,21 @@ FROM     FLIGHTSPRICE INNER JOIN
       <xs:selector xpath=".//mstns:Flights" />
       <xs:field xpath="mstns:Id" />
     </xs:unique>
-    <xs:keyref name="FK_CUSTOMER_FLIGHTS" refer="Constraint1" msdata:ConstraintOnly="true">
-      <xs:selector xpath=".//mstns:FLIGHTS" />
-      <xs:field xpath="mstns:CustomerId" />
-    </xs:keyref>
     <xs:keyref name="FK_FLIGHTSPRICE_FLIGHTS" refer="FLIGHTSPRICE_Constraint1" msdata:ConstraintOnly="true">
       <xs:selector xpath=".//mstns:FLIGHTS" />
       <xs:field xpath="mstns:FlightsPriceId" />
     </xs:keyref>
-    <xs:keyref name="CITIES_FLIGHTSPRICE1" refer="CITIES_Constraint1" msdata:ConstraintOnly="true">
-      <xs:selector xpath=".//mstns:FLIGHTSPRICE" />
-      <xs:field xpath="mstns:Arrival" />
+    <xs:keyref name="FK_CUSTOMER_FLIGHTS" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:FLIGHTS" />
+      <xs:field xpath="mstns:CustomerId" />
     </xs:keyref>
     <xs:keyref name="CITIES_FLIGHTSPRICE" refer="CITIES_Constraint1" msdata:ConstraintOnly="true">
       <xs:selector xpath=".//mstns:FLIGHTSPRICE" />
       <xs:field xpath="mstns:Departure" />
+    </xs:keyref>
+    <xs:keyref name="CITIES_FLIGHTSPRICE1" refer="CITIES_Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:FLIGHTSPRICE" />
+      <xs:field xpath="mstns:Arrival" />
     </xs:keyref>
   </xs:element>
 </xs:schema>

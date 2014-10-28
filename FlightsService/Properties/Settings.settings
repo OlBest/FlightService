@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FlightsService.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="FlightsService_PaymentSerivce_PaymentServiceService" Type="(Web Service URL)" Scope="Application">
+    <Setting Name="FlightsService_PaymentService_PaymentServiceService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://188.93.21.52:8380/DKPS/payment</Value>
     </Setting>
-    <Setting Name="FlightsService_WebReference_AccountServiceService" Type="(Web Service URL)" Scope="Application">
+    <Setting Name="FlightsService_AccountReference_AccountServiceService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://188.93.21.52:8380/DKPS/account</Value>
     </Setting>
   </Settings>

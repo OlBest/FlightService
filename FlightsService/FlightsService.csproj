@@ -92,12 +92,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PaymentService\Reference.cs">
+    <Compile Include="Web References\AccountService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\AccountService\Reference.cs">
+    <Compile Include="Web References\PaymentService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -115,19 +115,19 @@
     <Content Include="App_Data\FlightsDataSet.xss">
       <DependentUpon>FlightsDataSet.xsd</DependentUpon>
     </Content>
-    <None Include="Web References\PaymentService\payment.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PaymentService\PaymentServiceService.wsdl" />
-    <Content Include="Web References\PaymentService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
     <None Include="Web References\AccountService\account.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web References\AccountService\AccountServiceService.wsdl" />
     <Content Include="Web References\AccountService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\PaymentService\payment.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PaymentService\PaymentServiceService.wsdl" />
+    <Content Include="Web References\PaymentService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
@@ -142,6 +142,9 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <WebReferenceUrl Include="http://188.93.21.52:8380/DKPS/account%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\AccountService\</RelPath>
@@ -151,7 +154,7 @@
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>FlightsService_WebReference_AccountServiceService</CachedSettingsPropName>
+      <CachedSettingsPropName>FlightsService_AccountReference_AccountServiceService</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://188.93.21.52:8380/DKPS/payment%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -162,11 +165,8 @@
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>FlightsService_PaymentSerivce_PaymentServiceService</CachedSettingsPropName>
+      <CachedSettingsPropName>FlightsService_PaymentService_PaymentServiceService</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

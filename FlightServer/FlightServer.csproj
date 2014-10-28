@@ -391,10 +391,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\localhost\FlightsService.wsdl" />
-    <None Include="Web References\localhost\Reference.map">
+    <Content Include="Web References\localhost\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

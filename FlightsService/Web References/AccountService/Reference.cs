@@ -35,7 +35,7 @@ namespace FlightsService.AccountService {
         
         /// <remarks/>
         public AccountServiceService() {
-            this.Url = global::FlightsService.Properties.Settings.Default.FlightsService_WebReference_AccountServiceService;
+            this.Url = global::FlightsService.Properties.Settings.Default.FlightsService_AccountReference_AccountServiceService;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

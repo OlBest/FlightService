@@ -3,21 +3,15 @@
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web-сервис для работы с клиентами</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://flights.com/">
-      <s:element name="RegisterCompany">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="company" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="RegisterCompanyResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="Pay">
         <s:complexType />
       </s:element>
       <s:element name="PayResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PayResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="PayForTimeInMilliSeconds">
         <s:complexType>
@@ -27,7 +21,11 @@
         </s:complexType>
       </s:element>
       <s:element name="PayForTimeInMilliSecondsResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PayForTimeInMilliSecondsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="BuyTicket">
         <s:complexType>
@@ -336,12 +334,6 @@
       </s:element>
     </s:schema>
   </wsdl:types>
-  <wsdl:message name="RegisterCompanySoapIn">
-    <wsdl:part name="parameters" element="tns:RegisterCompany" />
-  </wsdl:message>
-  <wsdl:message name="RegisterCompanySoapOut">
-    <wsdl:part name="parameters" element="tns:RegisterCompanyResponse" />
-  </wsdl:message>
   <wsdl:message name="PaySoapIn">
     <wsdl:part name="parameters" element="tns:Pay" />
   </wsdl:message>
@@ -463,10 +455,6 @@
     <wsdl:part name="parameters" element="tns:GetFlightPriceResponse" />
   </wsdl:message>
   <wsdl:portType name="FlightsServiceSoap">
-    <wsdl:operation name="RegisterCompany">
-      <wsdl:input message="tns:RegisterCompanySoapIn" />
-      <wsdl:output message="tns:RegisterCompanySoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="Pay">
       <wsdl:input message="tns:PaySoapIn" />
       <wsdl:output message="tns:PaySoapOut" />
@@ -550,15 +538,6 @@
   </wsdl:portType>
   <wsdl:binding name="FlightsServiceSoap" type="tns:FlightsServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="RegisterCompany">
-      <soap:operation soapAction="http://flights.com/RegisterCompany" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="Pay">
       <soap:operation soapAction="http://flights.com/Pay" style="document" />
       <wsdl:input>
@@ -742,15 +721,6 @@
   </wsdl:binding>
   <wsdl:binding name="FlightsServiceSoap12" type="tns:FlightsServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="RegisterCompany">
-      <soap12:operation soapAction="http://flights.com/RegisterCompany" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="Pay">
       <soap12:operation soapAction="http://flights.com/Pay" style="document" />
       <wsdl:input>

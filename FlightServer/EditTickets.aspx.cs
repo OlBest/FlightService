@@ -99,7 +99,7 @@ namespace FlightServer
             string surname = TextBoxSurname.Text;
             int price = Convert.ToInt32(TextBoxPrice.Text);
             string departureCity = DropDownListDeparture.SelectedValue;
-            string arrivelCity = DropDownListDeparture.SelectedValue;
+            string arrivelCity = DropDownListArrival.SelectedValue;
 
             FlightsService service = Service.getInstanse().flightService;
             service.AddCustomer(name, surname);
